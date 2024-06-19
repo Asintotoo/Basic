@@ -3,26 +3,26 @@ package com.asintoto.basic.menu;
 import org.bukkit.persistence.PersistentDataAdapterContext;
 import org.bukkit.persistence.PersistentDataType;
 
-public class MenuDataType <T extends Menu> implements PersistentDataType<T, T> {
+public class MenuDataType implements PersistentDataType<Menu, Menu> {
 
     @Override
-    public Class<T> getPrimitiveType() {
-        return null;
+    public Class<Menu> getPrimitiveType() {
+        return Menu.class;
     }
 
     @Override
-    public Class<T> getComplexType() {
-        return null;
+    public Class<Menu> getComplexType() {
+        return Menu.class;
     }
 
     @Override
-    public T toPrimitive(T t, PersistentDataAdapterContext persistentDataAdapterContext) {
-        return null;
+    public Menu toPrimitive(Menu t, PersistentDataAdapterContext persistentDataAdapterContext) {
+        return t;
     }
 
     @Override
-    public T fromPrimitive(T t, PersistentDataAdapterContext persistentDataAdapterContext) {
-        return null;
+    public Menu fromPrimitive(Menu t, PersistentDataAdapterContext persistentDataAdapterContext) {
+        return t;
     }
 
     private static final MenuDataType INSTANCE = new MenuDataType();
