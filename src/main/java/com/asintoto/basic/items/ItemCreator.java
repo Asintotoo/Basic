@@ -109,7 +109,7 @@ public class ItemCreator {
 
     public ItemCreator setLore(String... lore) {
         for(String s : lore) {
-            String str = ChatColor.translateAlternateColorCodes('6', lorePrefix + s);
+            String str = ChatColor.translateAlternateColorCodes('&', lorePrefix + s);
             this.lore.add(str);
         }
 
@@ -126,8 +126,6 @@ public class ItemCreator {
         }
 
         ItemMeta finalMeta = meta.clone();
-
-        //finalItem.addEnchantments(enchants);
 
         for(Enchantment e : enchants.keySet()) {
             int level = enchants.get(e);

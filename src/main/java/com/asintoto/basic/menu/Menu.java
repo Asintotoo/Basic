@@ -2,6 +2,7 @@ package com.asintoto.basic.menu;
 
 import com.asintoto.basic.enums.ButtonType;
 import com.asintoto.basic.utils.BasicKeys;
+import com.asintoto.colorlib.ColorLib;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -54,12 +55,17 @@ public class Menu {
 
     public void addButton(Button button, int slot) {
         if(button.getButtonType() == ButtonType.PREVIUS) {
-            ItemMeta meta = button.getItem().getItemMeta();
+            try {
+                ItemMeta meta = button.getItem().getItemMeta();
 
-            meta.getPersistentDataContainer().set(BasicKeys.BASIC_MENU_HOLDER,
-                    MenuDataType.getInstance(), getPrevMenu());
+                meta.getPersistentDataContainer().set(BasicKeys.BASIC_MENU_HOLDER,
+                        MenuDataType.getInstance(), getPrevMenu());
 
-            button.getItem().setItemMeta(meta);
+                button.getItem().setItemMeta(meta);
+            } catch (Exception e) {
+                Bukkit.getServer().getConsoleSender().sendMessage(ColorLib
+                        .setColors("&cThis feature is still work in progress, it might not work. If you see this message it means something went wrong. DO NOT REPORT THIS ERROR"));
+            }
         }
         this.inventory.setItem(slot, button.getItem());
     }
