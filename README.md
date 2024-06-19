@@ -22,8 +22,8 @@ How to include the API with Maven
 **Note**: Basic requires to be shaded in order to be used in your Minecraft Plugin, please include the following in your *pom.xml*
 ```xml
 <build>
-  <plugins>
-     <plugin>
+    <plugins>
+        <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-shade-plugin</artifactId>
             <version>3.5.1</version>
@@ -58,8 +58,8 @@ How to include the API with Maven
                 </relocations>
             </configuration>
         </plugin>
-        </plugins>
-    </build>
+    </plugins>
+</build>
 ```
 
 # Wiki Coming Soon...
