@@ -32,11 +32,13 @@ public final class Basic {
         Basic.plugin = plugin;
         Basic.isActive = true;
 
+        File folder = new File(getPlugin().getDataFolder().getAbsolutePath());
+        if(!folder.exists()) {
+            folder.mkdir();
+        }
+
         Bukkit.getServer().getPluginManager().registerEvents(new InventoryCloseListener(), getPlugin());
         Bukkit.getServer().getPluginManager().registerEvents(new InventoryClickListener(), getPlugin());
-
-        regionManager = new RegionManager("regions.yml");
-        hologramManager = new HologramManager("holograms.yml");
 
         if(options.isDataFolder()) {
             File dataFolder = new File(plugin.getDataFolder() + "/" + options.getDataFolderName());
@@ -44,6 +46,10 @@ public final class Basic {
                 dataFolder.mkdir();
             }
         }
+
+        regionManager = new RegionManager("regions.yml");
+        hologramManager = new HologramManager("holograms.yml");
+
 
         if(options.isSaveRegions()) {
             if(regionManager.fileExists()) {

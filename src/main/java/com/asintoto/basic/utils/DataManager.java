@@ -13,8 +13,8 @@ public class DataManager {
     public DataManager(String fileName) {
         this.fileName = fileName;
 
-        this.file = new File(Basic.getOptions().getDataFolderName() + "/" + fileName);;
-        this.config = YamlManager.createYamlConfiguration(file);
+        this.file = new File(Basic.getPlugin().getDataFolder() + Basic.getOptions().getDataFolderName() + "/" + fileName);;
+        this.config = null;
     }
 
     public String getFileName() {
@@ -22,6 +22,10 @@ public class DataManager {
     }
 
     public YamlConfiguration getConfig() {
+        if(config == null) {
+            config = YamlManager.createYamlConfiguration(file);
+        }
+
         return config;
     }
 
@@ -31,10 +35,6 @@ public class DataManager {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
-    }
-
-    public void setConfig(YamlConfiguration config) {
-        this.config = config;
     }
 
     public void setFile(File file) {
