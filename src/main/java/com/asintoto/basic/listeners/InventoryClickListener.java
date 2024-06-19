@@ -25,7 +25,6 @@ public class InventoryClickListener implements Listener {
         if(p.getPersistentDataContainer().has(BasicKeys.BASIC_MENU_OPEN, PersistentDataType.BOOLEAN)
                 && !itemData.has(BasicKeys.BUTTON_TYPE_UNLOCKED, PersistentDataType.BOOLEAN)) {
             e.setCancelled(true);
-            return;
         }
 
         if(itemData.has(BasicKeys.BUTTON_TYPE_CLOSE, PersistentDataType.BOOLEAN)) {
