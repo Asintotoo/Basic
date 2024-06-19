@@ -39,6 +39,8 @@ public class ItemCreator {
         enchants = new HashMap<>();
         lore = new ArrayList<>();
         flags = new ArrayList<>();
+
+        this.meta = this.item.getItemMeta();
     }
 
     public ItemCreator(Material item) {

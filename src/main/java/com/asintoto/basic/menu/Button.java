@@ -3,6 +3,7 @@ package com.asintoto.basic.menu;
 import com.asintoto.basic.enums.ButtonType;
 import com.asintoto.basic.items.ItemCreator;
 import com.asintoto.basic.utils.BasicKeys;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -25,6 +26,14 @@ public class Button {
 
     public Button(ItemCreator item, ButtonType buttonType) {
         this(item.make(), buttonType);
+    }
+
+    public Button(Material material) {
+        this(new ItemStack(material));
+    }
+
+    public Button(Material material, ButtonType type) {
+        this(new ItemStack(material), type);
     }
 
     public Button(ItemStack item) {
