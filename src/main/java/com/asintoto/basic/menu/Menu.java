@@ -56,8 +56,8 @@ public class Menu {
         if(button.getButtonType() == ButtonType.PREVIUS) {
             ItemMeta meta = button.getItem().getItemMeta();
 
-            button.getItem().getItemMeta().getPersistentDataContainer().set(BasicKeys.BASIC_MENU_HOLDER,
-                    MenuDataType.getInstance(), prevMenu);
+            meta.getPersistentDataContainer().set(BasicKeys.BASIC_MENU_HOLDER,
+                    MenuDataType.getInstance(), getPrevMenu());
 
             button.getItem().setItemMeta(meta);
         }

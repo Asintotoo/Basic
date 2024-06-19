@@ -127,7 +127,14 @@ public class ItemCreator {
 
         ItemMeta finalMeta = meta.clone();
 
-        finalItem.addEnchantments(enchants);
+        //finalItem.addEnchantments(enchants);
+
+        for(Enchantment e : enchants.keySet()) {
+            int level = enchants.get(e);
+
+            finalMeta.addEnchant(e, level, true);
+        }
+
         finalMeta.setLore(lore);
 
         for(ItemFlag flag : flags) {
@@ -149,7 +156,7 @@ public class ItemCreator {
         }
 
         if(enchants.isEmpty() && glow) {
-            finalItem.addEnchantment(Enchantment.LURE, 1);
+            finalMeta.addEnchant(Enchantment.LURE, 1, true);
             finalMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
