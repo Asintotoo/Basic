@@ -5,6 +5,7 @@ import com.asintoto.basic.utils.BasicKeys;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
@@ -53,8 +54,12 @@ public class Menu {
 
     public void addButton(Button button, int slot) {
         if(button.getButtonType() == ButtonType.PREVIUS) {
+            ItemMeta meta = button.getItem().getItemMeta();
+
             button.getItem().getItemMeta().getPersistentDataContainer().set(BasicKeys.BASIC_MENU_HOLDER,
                     MenuDataType.getInstance(), prevMenu);
+
+            button.getItem().setItemMeta(meta);
         }
         this.inventory.setItem(slot, button.getItem());
     }

@@ -5,6 +5,7 @@ import com.asintoto.basic.items.ItemCreator;
 import com.asintoto.basic.utils.BasicKeys;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 public class Button {
@@ -16,11 +17,20 @@ public class Button {
         this.item = item;
 
         if(this.buttonType == ButtonType.CLOSE) {
-            this.item.getItemMeta().getPersistentDataContainer().set(BasicKeys.BUTTON_TYPE_CLOSE,
+            ItemMeta meta = this.item.getItemMeta();
+
+            meta.getPersistentDataContainer().set(BasicKeys.BUTTON_TYPE_CLOSE,
                     PersistentDataType.BOOLEAN, true);
+
+            this.item.setItemMeta(meta);
+
         } else if (this.buttonType == ButtonType.UNLOCKED) {
-            this.item.getItemMeta().getPersistentDataContainer().set(BasicKeys.BUTTON_TYPE_UNLOCKED,
+            ItemMeta meta = this.item.getItemMeta();
+
+            meta.getPersistentDataContainer().set(BasicKeys.BUTTON_TYPE_UNLOCKED,
                     PersistentDataType.BOOLEAN, true);
+
+            this.item.setItemMeta(meta);
         }
     }
 
