@@ -71,6 +71,10 @@ public class Hologram implements BasicSerializable {
     public void remove() {
         int id = Basic.getHologramManager().getHologramId(this);
 
+        remove(id);
+    }
+
+    public void remove(int id) {
         for (Entity e : location.getWorld().getNearbyEntities(location, 1, lines.length, 1)) {
             if (e.getPersistentDataContainer().has(BasicKeys.BASIC_HOLOGRAM, PersistentDataType.INTEGER)
                     && (e instanceof ArmorStand)) {

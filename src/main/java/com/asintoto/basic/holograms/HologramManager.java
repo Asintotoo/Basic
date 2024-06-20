@@ -41,7 +41,7 @@ public class HologramManager extends DataManager implements BasicSavable {
     }
 
     public void addHologram(Hologram holo) {
-        if(isUsedId(currentId)) {
+        if (isUsedId(currentId)) {
             currentId++;
             addHologram(holo);
             return;
@@ -54,7 +54,7 @@ public class HologramManager extends DataManager implements BasicSavable {
 
     private void putHologram(Hologram holo, int id) {
 
-        if(isUsedId(id)) {
+        if (isUsedId(id)) {
             return;
         }
 
@@ -72,15 +72,22 @@ public class HologramManager extends DataManager implements BasicSavable {
     }
 
     public void removeHologram(Hologram holo) {
-        if(hologramList.containsKey(holo)) {
+        if (hologramList.containsKey(holo)) {
             holo.remove();
             usedIds.remove(getHologramId(holo));
             hologramList.remove(holo);
         }
     }
 
+    public void removeHologram(Hologram holo, int id) {
+        holo.remove(id);
+        usedIds.remove(id);
+        hologramList.remove(holo);
+
+    }
+
     public int getHologramId(Hologram holo) {
-        if(!hologramList.containsKey(holo)) {
+        if (!hologramList.containsKey(holo)) {
             addHologram(holo);
             return getHologramId(holo);
         }
@@ -89,33 +96,36 @@ public class HologramManager extends DataManager implements BasicSavable {
 
     public void removeHologram(int id) {
         Hologram holo = null;
-        for(Map.Entry e : hologramList.entrySet()) {
-            if((int) e.getValue() == id) {
+        for (Map.Entry e : hologramList.entrySet()) {
+            if ((int) e.getValue() == id) {
                 holo = (Hologram) e.getKey();
                 break;
             }
         }
 
-        if(holo != null) {
+        if (holo != null) {
             removeHologram(holo);
         }
     }
 
     public void removeAll() {
-        for(Hologram holo : hologramList.keySet()) {
-            removeHologram(holo);
+
+        Map<Hologram,Integer> copy = hologramList;
+
+        for (Hologram holo : copy.keySet()) {
+            removeHologram(holo, getHologramId(holo));
         }
 
         currentId = 0;
     }
 
     private Hologram getHologramAtRadius(Location loc, int radius) {
-        for(Entity e : loc.getWorld().getNearbyEntities(loc, radius, radius, radius)) {
-            if(e.getPersistentDataContainer().has(BasicKeys.BASIC_HOLOGRAM, PersistentDataType.INTEGER)
+        for (Entity e : loc.getWorld().getNearbyEntities(loc, radius, radius, radius)) {
+            if (e.getPersistentDataContainer().has(BasicKeys.BASIC_HOLOGRAM, PersistentDataType.INTEGER)
                     && (e instanceof ArmorStand)) {
                 int id = e.getPersistentDataContainer().get(BasicKeys.BASIC_HOLOGRAM, PersistentDataType.INTEGER);
-                for(Hologram h : hologramList.keySet()) {
-                    if(getHologramId(h) == id) {
+                for (Hologram h : hologramList.keySet()) {
+                    if (getHologramId(h) == id) {
                         return h;
                     }
                 }
@@ -126,9 +136,9 @@ public class HologramManager extends DataManager implements BasicSavable {
     }
 
     public Hologram getNearestHologram(Location loc, int radius) {
-        for(int i = 1; i <= radius; i++) {
-            Hologram h = getHologramAtRadius(loc,i);
-            if(h != null) return h;
+        for (int i = 1; i <= radius; i++) {
+            Hologram h = getHologramAtRadius(loc, i);
+            if (h != null) return h;
         }
 
         return null;
@@ -145,13 +155,13 @@ public class HologramManager extends DataManager implements BasicSavable {
 
         setConfig(YamlManager.createYamlConfiguration(getFile()));
 
-        if(hologramList.isEmpty()) {
+        if (hologramList.isEmpty()) {
             return;
         }
 
         Debug.log("Starting saving " + hologramList.size() + " holograms...");
 
-        for(Hologram h : hologramList.keySet()) {
+        for (Hologram h : hologramList.keySet()) {
             int id = getHologramId(h);
             getConfig().set("Holograms." + id + ".location.x", h.getLocation().getX());
             getConfig().set("Holograms." + id + ".location.y", h.getLocation().getY());
@@ -162,7 +172,7 @@ public class HologramManager extends DataManager implements BasicSavable {
 
             getConfig().set("Holograms." + id + ".lines", h.getLines());
 
-            Debug.log("Hologram "+ id + " saved!");
+            Debug.log("Hologram " + id + " saved!");
         }
 
         try {
@@ -175,15 +185,15 @@ public class HologramManager extends DataManager implements BasicSavable {
     @Override
     public void load() {
 
-        if(getConfig() == null) {
-            if(fileExists()) {
+        if (getConfig() == null) {
+            if (fileExists()) {
                 setConfig(YamlConfiguration.loadConfiguration(getFile()));
             } else {
                 return;
             }
         }
 
-        if(!getConfig().isSet("Holograms")) {
+        if (!getConfig().isSet("Holograms")) {
             return;
         }
 
@@ -193,7 +203,7 @@ public class HologramManager extends DataManager implements BasicSavable {
 
         Debug.log("Is the hologram list empty? " + hologramList.isEmpty());
 
-        for(String id : getConfig().getConfigurationSection("Holograms").getKeys(false)) {
+        for (String id : getConfig().getConfigurationSection("Holograms").getKeys(false)) {
             Double x = getConfig().getDouble("Holograms." + id + ".location.x");
             Double y = getConfig().getDouble("Holograms." + id + ".location.y");
             Double z = getConfig().getDouble("Holograms." + id + ".location.z");
@@ -202,7 +212,7 @@ public class HologramManager extends DataManager implements BasicSavable {
             World w = Bukkit.getWorld(getConfig().getString("Holograms." + id + ".location.world"));
             List<String> lines = getConfig().getStringList("Holograms." + id + ".lines");
 
-            if(w == null) {
+            if (w == null) {
                 continue;
             }
 
@@ -215,8 +225,6 @@ public class HologramManager extends DataManager implements BasicSavable {
 
         currentId = Collections.max(usedIds) + 1;
     }
-
-
 
 
 }
