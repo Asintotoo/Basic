@@ -89,6 +89,12 @@ public class ItemCreator {
         return this;
     }
 
+    public ItemCreator setGlowing() {
+        this.glow = true;
+
+        return this;
+    }
+
     public ItemCreator setSkullOwner(String skullOwner) {
         this.skullOwner = skullOwner;
 

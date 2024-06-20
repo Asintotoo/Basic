@@ -10,6 +10,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Menu {
@@ -19,10 +21,13 @@ public class Menu {
     private int size;
     private String title;
     private Menu prevMenu;
+    private Map<Integer, Button> buttonSlotMap;
 
     public Menu(int size, String title) {
         this.title = title;
         this.size = size;
+
+        this.buttonSlotMap = new HashMap<>();
 
         if(size <= 0 || size > 54 || size % 9 != 0) size = 54;
 
@@ -50,11 +55,28 @@ public class Menu {
 
     public void open(Player p) {
         p.openInventory(inventory);
-        p.getPersistentDataContainer().set(BasicKeys.BASIC_MENU_OPEN, PersistentDataType.BOOLEAN, true);
+        //p.getPersistentDataContainer().set(BasicKeys.BASIC_MENU_OPEN, PersistentDataType.BOOLEAN, true);
+        MenuManager.addPlayer(p, this);
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void addButton(Button button, int slot) {
-        if(button.getButtonType() == ButtonType.PREVIUS) {
+        /*if(button.getButtonType() == ButtonType.PREVIUS) {
             try {
                 ItemMeta meta = button.getItem().getItemMeta();
 
@@ -66,8 +88,21 @@ public class Menu {
                 Bukkit.getServer().getConsoleSender().sendMessage(ColorLib
                         .setColors("&cThis feature is still work in progress, it might not work. If you see this message it means something went wrong. DO NOT REPORT THIS ERROR"));
             }
-        }
+        }*/
         this.inventory.setItem(slot, button.getItem());
+        this.buttonSlotMap.put(slot, button);
+    }
+
+    public Button getButtonAtSlot(int slot) {
+        if(buttonSlotMap.containsKey(slot)) {
+            return buttonSlotMap.get(slot);
+        }
+
+        return null;
+    }
+
+    public void onClick(Player p, int slot) {
+
     }
 
 }

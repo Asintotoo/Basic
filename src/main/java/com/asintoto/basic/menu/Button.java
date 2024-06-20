@@ -31,6 +31,13 @@ public class Button {
                     PersistentDataType.BOOLEAN, true);
 
             this.item.setItemMeta(meta);
+        } else if (this.buttonType == ButtonType.PREVIUS) {
+            ItemMeta meta = this.item.getItemMeta();
+
+            meta.getPersistentDataContainer().set(BasicKeys.BUTTON_TYPE_PREV,
+                    PersistentDataType.BOOLEAN, true);
+
+            this.item.setItemMeta(meta);
         }
     }
 

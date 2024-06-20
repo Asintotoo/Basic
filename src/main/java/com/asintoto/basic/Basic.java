@@ -3,6 +3,7 @@ package com.asintoto.basic;
 import com.asintoto.basic.holograms.HologramManager;
 import com.asintoto.basic.listeners.InventoryClickListener;
 import com.asintoto.basic.listeners.InventoryCloseListener;
+import com.asintoto.basic.menu.MenuManager;
 import com.asintoto.basic.regions.RegionManager;
 import com.asintoto.basic.utils.Options;
 import org.bukkit.Bukkit;
@@ -31,6 +32,8 @@ public final class Basic {
     public static <T extends JavaPlugin> void init(T plugin) {
         Basic.plugin = plugin;
         Basic.isActive = true;
+
+        MenuManager.init();
 
         File folder = new File(getPlugin().getDataFolder().getAbsolutePath());
         if(!folder.exists()) {
@@ -72,6 +75,7 @@ public final class Basic {
      */
     public static void terminate() {
         Basic.isActive = false;
+        MenuManager.closeAllMenus();
 
         if(options.isSaveRegions()) {
             regionManager.save();
@@ -137,6 +141,9 @@ public final class Basic {
      */
     public static void reload() {
         plugin.reloadConfig();
+
+        MenuManager.closeAllMenus();
+
         if(regionManager.fileExists()) {
             regionManager.load();
         }
