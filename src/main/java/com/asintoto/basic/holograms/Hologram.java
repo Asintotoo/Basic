@@ -13,11 +13,11 @@ import java.util.Map;
 
 public class Hologram implements BasicSerializable {
     private String[] lines;
-    private Location loc;
+    private Location location;
 
     public Hologram(Location loc, String... lines) {
         this.lines = lines;
-        this.loc = loc;
+        this.location = loc;
 
         Basic.getHologramManager().addHologram(this);
     }
@@ -30,21 +30,21 @@ public class Hologram implements BasicSerializable {
         this.lines = lines;
     }
 
-    public Location getLoc() {
-        return loc;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setLoc(Location loc) {
-        this.loc = loc;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public void spawn() {
 
-        Location currentLoc = loc.clone();
+        Location currentLoc = location.clone();
         int id = Basic.getHologramManager().getHologramId(this);
 
         for(String s : lines) {
-            ArmorStand stand = loc.getWorld().spawn(currentLoc, ArmorStand.class);
+            ArmorStand stand = location.getWorld().spawn(currentLoc, ArmorStand.class);
 
             stand.setVisible(false);
             stand.setGravity(false);
@@ -62,7 +62,7 @@ public class Hologram implements BasicSerializable {
     public void remove() {
         int id = Basic.getHologramManager().getHologramId(this);
 
-        for(Entity e : loc.getWorld().getNearbyEntities(loc, 1, lines.length, 1)) {
+        for(Entity e : location.getWorld().getNearbyEntities(location, 1, lines.length, 1)) {
             if(e.getPersistentDataContainer().has(BasicKeys.BASIC_HOLOGRAM, PersistentDataType.INTEGER)
                     && (e instanceof ArmorStand)) {
                 if(e.getPersistentDataContainer().get(BasicKeys.BASIC_HOLOGRAM, PersistentDataType.INTEGER) == id) {
@@ -76,7 +76,7 @@ public class Hologram implements BasicSerializable {
     public Map<String, Object> serialize() {
         Map<String, Object> map = new HashMap<>();
 
-        map.put("Location", loc);
+        map.put("Location", location);
         map.put("Lines", lines);
 
         return map;

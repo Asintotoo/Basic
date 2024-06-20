@@ -57,23 +57,7 @@ public class RegionManager extends DataManager implements BasicSavable {
     }
 
     @Override
-    /*public void save() {
-        List<Map<String, Object>> serializedRegion = new ArrayList<>();
-
-        for(Region r : regionList) {
-            serializedRegion.add(r.serialize());
-        }
-
-        getConfig().set("Regions", serializedRegion);
-        try {
-            getConfig().save(getFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
     public void save() {
-
-        //setConfig(YamlManager.createNewDataFile(getFileName()));
 
         if(regionList.isEmpty()) {
             return;
@@ -108,26 +92,6 @@ public class RegionManager extends DataManager implements BasicSavable {
     }
 
     @Override
-    /*public void load() {
-
-        try {
-            if(!getFile().exists()) {
-                getFile().createNewFile();
-            }
-
-            getConfig().load(getFile());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        regionList.clear();
-
-        if(getConfig().isSet("Regions")) {
-            for(Map<?, ?> rawRegion : getConfig().getMapList("Regions")) {
-                addRegion(Region.deserialize((Map<String, Object>) rawRegion));
-            }
-        }
-    }*/
     public void load() {
 
         if(getConfig() == null) {
@@ -142,6 +106,8 @@ public class RegionManager extends DataManager implements BasicSavable {
             return;
         }
 
+        regionList.clear();
+
         for(String name : getConfig().getConfigurationSection("Regions").getKeys(false)) {
             Double x = getConfig().getDouble("Regions." + name + ".first-location.x");
             Double y = getConfig().getDouble("Regions." + name + ".first-location.y");
@@ -149,6 +115,10 @@ public class RegionManager extends DataManager implements BasicSavable {
             Double pitch = getConfig().getDouble("Regions." + name + ".first-location.pitch");
             Double yaw = getConfig().getDouble("Regions." + name + ".first-location.yaw");
             World w = Bukkit.getWorld(getConfig().getString("Regions." + name + ".first-location.world"));
+
+            if(w == null) {
+                continue;
+            }
 
             Location loc1 = new Location(w, x, y, z, yaw.floatValue(), pitch.floatValue());
 
@@ -158,6 +128,10 @@ public class RegionManager extends DataManager implements BasicSavable {
             pitch = getConfig().getDouble("Regions." + name + ".second-location.pitch");
             yaw = getConfig().getDouble("Regions." + name + ".second-location.yaw");
             w = Bukkit.getWorld(getConfig().getString("Regions." + name + ".second-location.world"));
+
+            if(w == null) {
+                continue;
+            }
 
             Location loc2 = new Location(w, x, y, z, yaw.floatValue(), pitch.floatValue());
 
