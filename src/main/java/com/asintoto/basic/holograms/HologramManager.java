@@ -111,13 +111,13 @@ public class HologramManager extends DataManager implements BasicSavable {
     @Override
     public void save() {
 
-        if(hologramList.isEmpty()) {
-            return;
-        }
-
         regenerateFile();
 
         setConfig(YamlManager.createYamlConfiguration(getFile()));
+
+        if(hologramList.isEmpty()) {
+            return;
+        }
 
         for(Hologram h : hologramList.keySet()) {
             int id = getHologramId(h);

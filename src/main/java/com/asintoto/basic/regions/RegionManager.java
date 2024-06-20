@@ -3,6 +3,7 @@ package com.asintoto.basic.regions;
 import com.asintoto.basic.Basic;
 import com.asintoto.basic.interfaces.BasicSavable;
 import com.asintoto.basic.utils.DataManager;
+import com.asintoto.basic.utils.Debug;
 import com.asintoto.basic.utils.YamlManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -59,13 +60,15 @@ public class RegionManager extends DataManager implements BasicSavable {
     @Override
     public void save() {
 
+        regenerateFile();
+
+        setConfig(YamlManager.createYamlConfiguration(getFile()));
+
         if(regionList.isEmpty()) {
             return;
         }
 
-        regenerateFile();
-
-        setConfig(YamlManager.createYamlConfiguration(getFile()));
+        Debug.log("Starting saving " + regionList.size() + " regions...");
 
         for(Region r : regionList) {
             String regName = r.getName();
@@ -82,6 +85,8 @@ public class RegionManager extends DataManager implements BasicSavable {
             getConfig().set("Regions." + regName + ".second-location.pitch", r.getSecondaryLocation().getPitch());
             getConfig().set("Regions." + regName + ".second-location.yaw", r.getSecondaryLocation().getYaw());
             getConfig().set("Regions." + regName + ".second-location.world", r.getSecondaryLocation().getWorld().getName());
+
+            Debug.log("Reagion "+ regName + " saved!");
         }
 
         try {
@@ -106,7 +111,11 @@ public class RegionManager extends DataManager implements BasicSavable {
             return;
         }
 
+        Debug.log("Starting loading regions...");
+
         regionList.clear();
+
+        Debug.log("Is the region list empty?" + regionList.isEmpty());
 
         for(String name : getConfig().getConfigurationSection("Regions").getKeys(false)) {
             Double x = getConfig().getDouble("Regions." + name + ".first-location.x");
@@ -135,7 +144,9 @@ public class RegionManager extends DataManager implements BasicSavable {
 
             Location loc2 = new Location(w, x, y, z, yaw.floatValue(), pitch.floatValue());
 
-            addRegion(new Region(name, loc2, loc2));
+            addRegion(new Region(name, loc1, loc2));
+
+            Debug.log("Region " + name + " loaded!");
         }
     }
 }
