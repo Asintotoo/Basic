@@ -60,12 +60,23 @@ public class RegionManager extends DataManager implements BasicSavable {
         try {
             getConfig().save(getFile());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
     @Override
     public void load() {
+
+        try {
+            if(!getFile().exists()) {
+                getFile().createNewFile();
+            }
+
+            getConfig().load(getFile());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         regionList.clear();
 
         if(getConfig().isSet("Regions")) {
