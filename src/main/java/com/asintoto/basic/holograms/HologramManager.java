@@ -208,7 +208,7 @@ public class HologramManager extends DataManager implements BasicSavable {
 
             Location loc = new Location(w, x, y, z, yaw.floatValue(), pitch.floatValue());
 
-            putHologram(new Hologram(loc, lines.toArray(new String[0])), Integer.parseInt(id));
+            putHologram(new Hologram(true, loc, lines.toArray(new String[0])), Integer.parseInt(id));
 
             Debug.log("Hologram " + id + " loaded!");
         }

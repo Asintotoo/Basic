@@ -22,6 +22,15 @@ public class Hologram implements BasicSerializable {
         Basic.getHologramManager().addHologram(this);
     }
 
+    public Hologram(boolean dontAdd, Location loc, String... lines) {
+        this.lines = lines;
+        this.location = loc;
+
+        if (!dontAdd) {
+            Basic.getHologramManager().addHologram(this);
+        }
+    }
+
     public String[] getLines() {
         return lines;
     }
@@ -43,7 +52,7 @@ public class Hologram implements BasicSerializable {
         Location currentLoc = location.clone();
         int id = Basic.getHologramManager().getHologramId(this);
 
-        for(String s : lines) {
+        for (String s : lines) {
             ArmorStand stand = location.getWorld().spawn(currentLoc, ArmorStand.class);
 
             stand.setVisible(false);
@@ -62,10 +71,10 @@ public class Hologram implements BasicSerializable {
     public void remove() {
         int id = Basic.getHologramManager().getHologramId(this);
 
-        for(Entity e : location.getWorld().getNearbyEntities(location, 1, lines.length, 1)) {
-            if(e.getPersistentDataContainer().has(BasicKeys.BASIC_HOLOGRAM, PersistentDataType.INTEGER)
+        for (Entity e : location.getWorld().getNearbyEntities(location, 1, lines.length, 1)) {
+            if (e.getPersistentDataContainer().has(BasicKeys.BASIC_HOLOGRAM, PersistentDataType.INTEGER)
                     && (e instanceof ArmorStand)) {
-                if(e.getPersistentDataContainer().get(BasicKeys.BASIC_HOLOGRAM, PersistentDataType.INTEGER) == id) {
+                if (e.getPersistentDataContainer().get(BasicKeys.BASIC_HOLOGRAM, PersistentDataType.INTEGER) == id) {
                     e.remove();
                 }
             }

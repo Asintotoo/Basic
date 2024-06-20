@@ -1,6 +1,5 @@
 package com.asintoto.basic.regions;
 
-import com.asintoto.basic.Basic;
 import com.asintoto.basic.interfaces.BasicSavable;
 import com.asintoto.basic.utils.DataManager;
 import com.asintoto.basic.utils.Debug;
@@ -8,15 +7,11 @@ import com.asintoto.basic.utils.YamlManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class RegionManager extends DataManager implements BasicSavable {
     private ArrayList<Region> regionList;
@@ -149,7 +144,7 @@ public class RegionManager extends DataManager implements BasicSavable {
 
             Location loc2 = new Location(w, x, y, z, yaw.floatValue(), pitch.floatValue());
 
-            addRegion(new Region(name, loc1, loc2));
+            new Region(name, loc1, loc2);
 
             Debug.log("Region " + name + " loaded!");
         }
