@@ -29,6 +29,13 @@ public class HologramManager extends DataManager implements BasicSavable {
         usedIds = new HashSet<>();
     }
 
+    @Override
+    public void terminate() {
+        hologramList.clear();
+        currentId = 0;
+        usedIds.clear();
+    }
+
     public Map<Hologram, Integer> getHologramList() {
         return hologramList;
     }

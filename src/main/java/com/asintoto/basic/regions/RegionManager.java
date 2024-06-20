@@ -26,6 +26,11 @@ public class RegionManager extends DataManager implements BasicSavable {
         regionList = new ArrayList<>();
     }
 
+    @Override
+    public void terminate() {
+        regionList.clear();
+    }
+
     public void addRegion(Region r) {
         regionList.add(r);
     }

@@ -85,6 +85,8 @@ public final class Basic {
             hologramManager.save();
         }
 
+        regionManager.terminate();
+        hologramManager.terminate();
     }
 
     /**

@@ -27,6 +27,10 @@ public class Options {
         return debugMode;
     }
 
+    public void debug() {
+        this.debugMode = true;
+    }
+
     public void setSaveRegions(boolean saveRegions) {
         this.saveRegions = saveRegions;
     }

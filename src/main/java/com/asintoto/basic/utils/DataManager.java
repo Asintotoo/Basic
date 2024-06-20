@@ -6,7 +6,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 
-public class DataManager {
+public abstract class DataManager {
     private String fileName;
     private YamlConfiguration config;
     private File file;
@@ -30,21 +30,9 @@ public class DataManager {
         this.config = config;
     }
 
-    /*public File getFile() {
-        return new File(Basic.getPlugin().getDataFolder() + "/" + Basic.getOptions().getDataFolderName() + "/" + fileName);
-    }*/
-
     public File getFile() {
         return file;
     }
-
-    /*public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public void setFile(File file) {
-        this.file = file;
-    }*/
 
     public boolean fileExists() {
         return getFile().exists();
@@ -61,4 +49,6 @@ public class DataManager {
             e.printStackTrace();
         }
     }
+
+    public abstract void terminate();
 }
