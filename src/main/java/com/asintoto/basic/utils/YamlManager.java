@@ -34,4 +34,24 @@ public class YamlManager {
         File configFile = new File(Basic.getPlugin().getDataFolder(), filename);
         return YamlConfiguration.loadConfiguration(configFile);
     }
+
+    public static YamlConfiguration createNewDataFile(String filename) {
+        File file = new File(Basic.getPlugin().getDataFolder()
+                + "/" + Basic.getOptions().getDataFolderName() + "/" + filename);
+
+        try {
+            if(file.exists()) {
+                file.delete();
+            }
+
+            file.createNewFile();
+
+            return YamlConfiguration.loadConfiguration(file);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 }
