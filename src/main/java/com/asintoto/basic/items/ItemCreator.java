@@ -3,6 +3,7 @@ package com.asintoto.basic.items;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -167,5 +168,12 @@ public class ItemCreator {
         finalItem.setItemMeta(finalMeta);
 
         return finalItem;
+    }
+
+    public void give(Player p) {
+        ItemStack giveItem = make();
+        if(p.getInventory().firstEmpty() != -1) {
+            p.getInventory().addItem(giveItem);
+        }
     }
 }

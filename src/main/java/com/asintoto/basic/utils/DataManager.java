@@ -13,7 +13,7 @@ public class DataManager {
     public DataManager(String fileName) {
         this.fileName = fileName;
 
-        this.file = new File(Basic.getPlugin().getDataFolder() + Basic.getOptions().getDataFolderName() + "/" + fileName);;
+        this.file = new File(Basic.getPlugin().getDataFolder() + "/" + Basic.getOptions().getDataFolderName() + "/" + fileName);;
         this.config = null;
     }
 
