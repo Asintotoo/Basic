@@ -73,7 +73,15 @@ public class RegionManager extends DataManager implements BasicSavable {
     }*/
     public void save() {
 
-        setConfig(YamlManager.createNewDataFile(getFileName()));
+        //setConfig(YamlManager.createNewDataFile(getFileName()));
+
+        if(regionList.isEmpty()) {
+            return;
+        }
+
+        regenerateFile();
+
+        setConfig(YamlManager.createYamlConfiguration(getFile()));
 
         for(Region r : regionList) {
             String regName = r.getName();
@@ -128,6 +136,10 @@ public class RegionManager extends DataManager implements BasicSavable {
             } else {
                 return;
             }
+        }
+
+        if(!getConfig().isSet("Regions")) {
+            return;
         }
 
         for(String name : getConfig().getConfigurationSection("Regions").getKeys(false)) {

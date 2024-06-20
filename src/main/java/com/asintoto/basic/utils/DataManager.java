@@ -4,16 +4,17 @@ import com.asintoto.basic.Basic;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.io.IOException;
 
 public class DataManager {
     private String fileName;
     private YamlConfiguration config;
-    //private File file;
+    private File file;
 
     public DataManager(String fileName) {
         this.fileName = fileName;
 
-        //this.file = new File(Basic.getPlugin().getDataFolder() + "/" + Basic.getOptions().getDataFolderName() + "/" + fileName);
+        this.file = new File(Basic.getPlugin().getDataFolder() + "/" + Basic.getOptions().getDataFolderName() + "/" + fileName);
         this.config = null;
     }
 
@@ -29,15 +30,15 @@ public class DataManager {
         this.config = config;
     }
 
-    public File getFile() {
-        return new File(Basic.getPlugin().getDataFolder() + "/" + Basic.getOptions().getDataFolderName() + "/" + fileName);
-    }
-
     /*public File getFile() {
+        return new File(Basic.getPlugin().getDataFolder() + "/" + Basic.getOptions().getDataFolderName() + "/" + fileName);
+    }*/
+
+    public File getFile() {
         return file;
     }
 
-    public void setFileName(String fileName) {
+    /*public void setFileName(String fileName) {
         this.fileName = fileName;
     }
 
@@ -47,5 +48,17 @@ public class DataManager {
 
     public boolean fileExists() {
         return getFile().exists();
+    }
+
+    public void regenerateFile() {
+        if(file.exists()) {
+            file.delete();
+        }
+
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
