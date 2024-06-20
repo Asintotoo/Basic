@@ -10,18 +10,18 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class HologramManager extends DataManager implements BasicSavable {
     private Map<Hologram, Integer> hologramList;
     private int currentId;
+    private Set<Integer> usedIds = new HashSet<>();
 
     public HologramManager(String fileName) {
         super(fileName);
         hologramList = new HashMap<>();
         currentId = 0;
+        usedIds = new HashSet<>();
     }
 
     public Map<Hologram, Integer> getHologramList() {
@@ -29,8 +29,29 @@ public class HologramManager extends DataManager implements BasicSavable {
     }
 
     public void addHologram(Hologram holo) {
+        if(isUsedId(currentId)) {
+            currentId++;
+            addHologram(holo);
+            return;
+        }
+
         hologramList.put(holo, currentId);
+        usedIds.add(currentId);
         currentId++;
+    }
+
+    private void putHologram(Hologram holo, int id) {
+
+        if(isUsedId(id)) {
+            return;
+        }
+
+        hologramList.put(holo, id);
+        usedIds.add(id);
+    }
+
+    private boolean isUsedId(int id) {
+        return usedIds.contains(id);
     }
 
     public void addAndSpawn(Hologram holo) {
@@ -41,6 +62,7 @@ public class HologramManager extends DataManager implements BasicSavable {
     public void removeHologram(Hologram holo) {
         if(hologramList.containsKey(holo)) {
             holo.remove();
+            usedIds.remove(getHologramId(holo));
             hologramList.remove(holo);
         }
     }
@@ -75,21 +97,18 @@ public class HologramManager extends DataManager implements BasicSavable {
         currentId = 0;
     }
 
+    private int getFirstFreeId() {
+        int i = 0;
+        while(true) {
+            for(Hologram h : hologramList.keySet()) {
+                if(getHologramId(h) != i) {
+
+                }
+            }
+        }
+    }
+
     @Override
-    /*public void save() {
-        List<Map<String, Object>> serializedHologram = new ArrayList<>();
-
-        for(Hologram h : hologramList.keySet()) {
-            serializedHologram.add(h.serialize());
-        }
-
-        getConfig().set("Holograms", serializedHologram);
-        try {
-            getConfig().save(getFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
     public void save() {
 
         if(hologramList.isEmpty()) {
@@ -120,25 +139,6 @@ public class HologramManager extends DataManager implements BasicSavable {
     }
 
     @Override
-    /*public void load() {
-        try {
-            if(!getFile().exists()) {
-                getFile().createNewFile();
-            }
-
-            getConfig().load(getFile());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        hologramList.clear();
-
-        if(getConfig().isSet("Holograms")) {
-            for(Map<?, ?> rawHologram : getConfig().getMapList("Holograms")) {
-                addAndSpawn(Hologram.deserialize((Map<String, Object>) rawHologram));
-            }
-        }
-    }*/
     public void load() {
 
         if(getConfig() == null) {
@@ -170,8 +170,10 @@ public class HologramManager extends DataManager implements BasicSavable {
 
             Location loc = new Location(w, x, y, z, yaw.floatValue(), pitch.floatValue());
 
-            addHologram(new Hologram(loc, lines.toArray(new String[0])));
+            putHologram(new Hologram(loc, lines.toArray(new String[0])), Integer.parseInt(id));
         }
+
+        currentId = Collections.max(usedIds) + 1;
     }
 
 

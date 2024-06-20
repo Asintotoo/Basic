@@ -31,6 +31,14 @@ public class Options {
         this.saveRegions = saveRegions;
     }
 
+    public void saveRegions() {
+        this.saveRegions = true;
+    }
+
+    public void saveHolograms() {
+        this.saveHolograms = true;
+    }
+
     public void setSaveHolograms(boolean saveHolograms) {
         this.saveHolograms = saveHolograms;
     }
