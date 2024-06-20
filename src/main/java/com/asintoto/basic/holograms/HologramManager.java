@@ -1,13 +1,18 @@
 package com.asintoto.basic.holograms;
 
 import com.asintoto.basic.interfaces.BasicSavable;
-import com.asintoto.basic.regions.Region;
+import com.asintoto.basic.utils.BasicKeys;
 import com.asintoto.basic.utils.DataManager;
+import com.asintoto.basic.utils.Debug;
 import com.asintoto.basic.utils.YamlManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.io.IOException;
 import java.util.*;
@@ -97,15 +102,33 @@ public class HologramManager extends DataManager implements BasicSavable {
         currentId = 0;
     }
 
-    private int getFirstFreeId() {
-        int i = 0;
-        while(true) {
-            for(Hologram h : hologramList.keySet()) {
-                if(getHologramId(h) != i) {
-
+    private Hologram getHologramAtRadius(Location loc, int radius) {
+        for(Entity e : loc.getWorld().getNearbyEntities(loc, radius, radius, radius)) {
+            if(e.getPersistentDataContainer().has(BasicKeys.BASIC_HOLOGRAM, PersistentDataType.INTEGER)
+                    && (e instanceof ArmorStand)) {
+                int id = e.getPersistentDataContainer().get(BasicKeys.BASIC_HOLOGRAM, PersistentDataType.INTEGER);
+                for(Hologram h : hologramList.keySet()) {
+                    if(getHologramId(h) == id) {
+                        return h;
+                    }
                 }
             }
         }
+
+        return null;
+    }
+
+    public Hologram getNearestHologram(Location loc, int radius) {
+        for(int i = 1; i <= radius; i++) {
+            Hologram h = getHologramAtRadius(loc,i);
+            if(h != null) return h;
+        }
+
+        return null;
+    }
+
+    public Hologram getNearestHologram(Player p, int radius) {
+        return getNearestHologram(p.getLocation(), radius);
     }
 
     @Override
@@ -119,6 +142,8 @@ public class HologramManager extends DataManager implements BasicSavable {
             return;
         }
 
+        Debug.log("Starting saving " + hologramList.size() + " holograms...");
+
         for(Hologram h : hologramList.keySet()) {
             int id = getHologramId(h);
             getConfig().set("Holograms." + id + ".location.x", h.getLocation().getX());
@@ -129,6 +154,8 @@ public class HologramManager extends DataManager implements BasicSavable {
             getConfig().set("Holograms." + id + ".location.world", h.getLocation().getWorld().getName());
 
             getConfig().set("Holograms." + id + ".lines", h.getLines());
+
+            Debug.log("Hologram "+ id + " saved!");
         }
 
         try {
@@ -153,7 +180,11 @@ public class HologramManager extends DataManager implements BasicSavable {
             return;
         }
 
+        Debug.log("Starting loading holograms...");
+
         hologramList.clear();
+
+        Debug.log("Is the hologram list empty? " + hologramList.isEmpty());
 
         for(String id : getConfig().getConfigurationSection("Holograms").getKeys(false)) {
             Double x = getConfig().getDouble("Holograms." + id + ".location.x");
@@ -171,6 +202,8 @@ public class HologramManager extends DataManager implements BasicSavable {
             Location loc = new Location(w, x, y, z, yaw.floatValue(), pitch.floatValue());
 
             putHologram(new Hologram(loc, lines.toArray(new String[0])), Integer.parseInt(id));
+
+            Debug.log("Hologram " + id + " loaded!");
         }
 
         currentId = Collections.max(usedIds) + 1;

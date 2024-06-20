@@ -86,7 +86,7 @@ public class RegionManager extends DataManager implements BasicSavable {
             getConfig().set("Regions." + regName + ".second-location.yaw", r.getSecondaryLocation().getYaw());
             getConfig().set("Regions." + regName + ".second-location.world", r.getSecondaryLocation().getWorld().getName());
 
-            Debug.log("Reagion "+ regName + " saved!");
+            Debug.log("Region "+ regName + " saved!");
         }
 
         try {
@@ -115,7 +115,7 @@ public class RegionManager extends DataManager implements BasicSavable {
 
         regionList.clear();
 
-        Debug.log("Is the region list empty?" + regionList.isEmpty());
+        Debug.log("Is the region list empty? " + regionList.isEmpty());
 
         for(String name : getConfig().getConfigurationSection("Regions").getKeys(false)) {
             Double x = getConfig().getDouble("Regions." + name + ".first-location.x");
