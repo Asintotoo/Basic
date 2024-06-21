@@ -85,6 +85,15 @@ public class Hologram implements BasicSerializable {
         }
     }
 
+    public void forceRemove() {
+        for (Entity e : location.getWorld().getNearbyEntities(location, 1, lines.length, 1)) {
+            if (e.getPersistentDataContainer().has(BasicKeys.BASIC_HOLOGRAM, PersistentDataType.INTEGER)
+                    && (e instanceof ArmorStand)) {
+                e.remove();
+            }
+        }
+    }
+
     @Override
     public Map<String, Object> serialize() {
         Map<String, Object> map = new HashMap<>();

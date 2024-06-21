@@ -27,20 +27,23 @@ public class Options {
         return debugMode;
     }
 
-    public void debug() {
+    public Options debug() {
         this.debugMode = true;
+        return this;
     }
 
     public void setSaveRegions(boolean saveRegions) {
         this.saveRegions = saveRegions;
     }
 
-    public void saveRegions() {
+    public Options saveRegions() {
         this.saveRegions = true;
+        return this;
     }
 
-    public void saveHolograms() {
+    public Options saveHolograms() {
         this.saveHolograms = true;
+        return this;
     }
 
     public void setSaveHolograms(boolean saveHolograms) {
@@ -61,6 +64,11 @@ public class Options {
 
     public void setDataFolderName(String dataFolderName) {
         this.dataFolderName = dataFolderName;
+    }
+
+    public Options dataFolderName(String dataFolderName) {
+        setDataFolderName(dataFolderName);
+        return this;
     }
 
 }

@@ -110,10 +110,11 @@ public class HologramManager extends DataManager implements BasicSavable {
 
     public void removeAll() {
 
-        Map<Hologram,Integer> copy = hologramList;
+        //Map<Hologram,Integer> copy = hologramList;
 
-        for (Hologram holo : copy.keySet()) {
-            removeHologram(holo, getHologramId(holo));
+        for (Hologram holo : hologramList.keySet()) {
+            //removeHologram(holo, getHologramId(holo));
+            holo.forceRemove();
         }
 
         currentId = 0;
