@@ -9,6 +9,7 @@ import com.asintoto.basic.regions.RegionManager;
 import com.asintoto.basic.utils.Debug;
 import com.asintoto.basic.utils.Options;
 import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -195,5 +196,9 @@ public final class Basic {
     public static <T extends BasicCommand> void registerCommmand(String cmd, T commandClass) {
         plugin.getCommand(cmd).setExecutor(commandClass);
         plugin.getCommand(cmd).setTabCompleter(commandClass);
+    }
+
+    public static <T extends Listener> void registerListener(T listenerClass) {
+        plugin.getServer().getPluginManager().registerEvents(listenerClass, plugin);
     }
 }

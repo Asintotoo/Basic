@@ -1,5 +1,7 @@
 package com.asintoto.basic;
 
+import com.asintoto.basic.commands.BasicCommand;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public abstract class BasicPlugin extends JavaPlugin {
@@ -20,7 +22,15 @@ public abstract class BasicPlugin extends JavaPlugin {
         onPluginDisable();
     }
 
-    protected abstract void onPluginLoad();
-    protected abstract void onPluginEnable();
-    protected abstract void onPluginDisable();
+    public void onPluginLoad() {}
+    public void onPluginEnable() {}
+    public void onPluginDisable() {}
+
+    protected <T extends BasicCommand> void registerCommmand(String cmd, T commandClass) {
+        Basic.registerCommmand(cmd, commandClass);
+    }
+
+    protected <T extends Listener> void registerListener(T listenerClass) {
+        Basic.registerListener(listenerClass);
+    }
 }
