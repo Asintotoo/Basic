@@ -33,6 +33,13 @@ Learn how to use Basic in you Minecraft Java Edition plugin by visiting the [wik
 
 **ColorLib implementation**: Basic comes with Asintoto's ColorLib already integrated. Get more information [here](https://github.com/Asintotoo/ColorLib)
 
+
+## To Do
+
+- Support for multiple Minecraft Versions
+- Support for BungeeCord, Velocity, Folia and others
+- More features to simplify development even more
+  
 ***
 # Licencing Information
 
