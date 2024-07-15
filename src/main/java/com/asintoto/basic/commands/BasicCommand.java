@@ -20,9 +20,7 @@ public abstract class BasicCommand implements CommandExecutor, TabCompleter {
     public BasicCommand(String label) {
         this.label = label;
 
-        if(this.getClass().isAnnotationPresent(RegisterCommand.class)) {
-            Basic.getPlugin().getCommand(label).setExecutor(this);
-        }
+        registerCommand();
     }
 
     @Override
@@ -42,5 +40,11 @@ public abstract class BasicCommand implements CommandExecutor, TabCompleter {
 
     public List<String> onTabComplete(CommandSender sender, String[] args) {
         return NO_COMPLETE;
+    }
+
+    private void registerCommand() {
+        if(this.getClass().isAnnotationPresent(RegisterCommand.class)) {
+            Basic.getPlugin().getCommand(label).setExecutor(this);
+        }
     }
 }
