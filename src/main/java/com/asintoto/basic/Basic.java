@@ -9,12 +9,16 @@ import com.asintoto.basic.regions.RegionManager;
 import com.asintoto.basic.utils.Debug;
 import com.asintoto.basic.utils.Options;
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.TabCompleter;
+import org.bukkit.command.*;
+import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.lang.reflect.Field;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public final class Basic {
 
@@ -196,11 +200,30 @@ public final class Basic {
     }
 
     public static <T extends BasicCommand> void registerCommand(String cmd, T commandClass) {
+        if(options().isRegisterCommandInFile()) {
+            registerDynamicCommand(cmd, commandClass.getDescription(), commandClass.getPermission(),
+                    commandClass.getAliases(), commandClass);
+        }
+
         plugin.getCommand(cmd).setExecutor(commandClass);
         plugin.getCommand(cmd).setTabCompleter(commandClass);
     }
 
     public static <T extends CommandExecutor> void registerCommand(String cmd, T commandClass) {
+        if(options().isRegisterCommandInFile()) {
+            registerDynamicCommand(cmd, "", "",
+                    Collections.emptyList(), commandClass);
+        }
+
+        plugin.getCommand(cmd).setExecutor(commandClass);
+    }
+
+    public static <T extends CommandExecutor> void registerCommand(String cmd, T commandClass, String description, String permission, List<String> aliases) {
+        if(options().isRegisterCommandInFile()) {
+            registerDynamicCommand(cmd, description, permission,
+                    aliases, commandClass);
+        }
+
         plugin.getCommand(cmd).setExecutor(commandClass);
     }
 
@@ -219,5 +242,30 @@ public final class Basic {
 
     public static <T extends Listener> void registerListener(T listenerClass, JavaPlugin pl) {
         plugin.getServer().getPluginManager().registerEvents(listenerClass, pl);
+    }
+
+    public static void registerDynamicCommand(String name, String description, String permission, List<String> aliases, CommandExecutor executor) {
+        try {
+            Field commandMapField = Bukkit.getServer().getClass().getDeclaredField("commandMap");
+            commandMapField.setAccessible(true);
+            CommandMap commandMap = (CommandMap) commandMapField.get(Bukkit.getServer());
+
+            Command command = new BukkitCommand(name) {
+                @Override
+                public boolean execute(CommandSender sender, String commandLabel, String[] args) {
+                    if (executor != null) {
+                        return executor.onCommand(sender, this, commandLabel, args);
+                    }
+                    return false;
+                }
+            };
+            command.setDescription(description);
+            command.setPermission(permission);
+            command.setAliases(aliases);
+
+            commandMap.register(plugin.getDescription().getName(), command);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.asintoto.basic.commands;
 
+import com.asintoto.basic.Basic;
 import com.asintoto.colorlib.ColorLib;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -7,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,10 +23,16 @@ public abstract class BasicCommand implements CommandExecutor, TabCompleter {
     protected String[] args;
 
     private String usage;
+    private String description;
+    private List<String> aliases;
+    private String permission;
 
     public BasicCommand(String label) {
         this.label = label;
         this.usage = ColorLib.setColors("&cUsage: /" + label + " <params...>");
+        this.description = label + " command";
+        this.aliases = new ArrayList<>();
+        this.permission = Basic.getPlugin().getName().toLowerCase().replace(" ", "") + ".command." + label + ".use";
     }
 
     @Override
@@ -76,6 +84,18 @@ public abstract class BasicCommand implements CommandExecutor, TabCompleter {
         return null;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    protected void printDescription() {
+        sender.sendMessage(description);
+    }
+
     protected void sendMessage(Player p, String msg) {
         p.sendMessage(ColorLib.setColors(msg));
     }
@@ -90,5 +110,21 @@ public abstract class BasicCommand implements CommandExecutor, TabCompleter {
 
     public String getLabel() {
         return label;
+    }
+
+    public List<String> getAliases() {
+        return aliases;
+    }
+
+    public void setAliases(String... al) {
+        Collections.addAll(aliases, al);
+    }
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
     }
 }
