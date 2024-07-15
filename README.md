@@ -18,6 +18,8 @@
 - **Holograms**: Simplified creation and handling of holograms.
 - **Menu Creation**: Streamlined process for creating interactive menus.
 - **Item Creation**: Facilitates the creation and customization of items.
+- **Easy Command Creation**: Simplified command creation with tab completion
+- **Custom Events**: Easily create custom events without needing to type all the repetitive methods
 - **Automatic File Saving**: Automatically handle file saving to reduce repetitive coding tasks.
 
 
