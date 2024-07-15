@@ -24,7 +24,7 @@ public abstract class BasicCommand implements CommandExecutor, TabCompleter {
 
     public BasicCommand(String label) {
         this.label = label;
-        this.usage = ColorLib.setColors("&cUsage: /" + label + "<params...>");
+        this.usage = ColorLib.setColors("&cUsage: /" + label + " <params...>");
     }
 
     @Override
@@ -70,5 +70,17 @@ public abstract class BasicCommand implements CommandExecutor, TabCompleter {
             return (Player) sender;
         }
         return null;
+    }
+
+    protected void sendMessage(Player p, String msg) {
+        p.sendMessage(ColorLib.setColors(msg));
+    }
+
+    protected void sendMessage(CommandSender p, String msg) {
+        p.sendMessage(ColorLib.setColors(msg));
+    }
+
+    protected void sendMessage(String msg) {
+        sendMessage(sender, msg);
     }
 }
