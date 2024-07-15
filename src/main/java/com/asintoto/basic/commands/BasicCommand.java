@@ -17,11 +17,11 @@ public abstract class BasicCommand implements CommandExecutor, TabCompleter {
     protected List<String> PLAYER_LIST = null;
     protected String label;
 
-    public <T extends BasicCommand> BasicCommand(String label, T classCommand) {
+    public BasicCommand(String label) {
         this.label = label;
 
-        if(classCommand.getClass().isAnnotationPresent(RegisterCommand.class)) {
-            Basic.getPlugin().getCommand(label).setExecutor(classCommand);
+        if(this.getClass().isAnnotationPresent(RegisterCommand.class)) {
+            Basic.getPlugin().getCommand(label).setExecutor(this);
         }
     }
 
@@ -37,7 +37,7 @@ public abstract class BasicCommand implements CommandExecutor, TabCompleter {
     }
 
     public void onCommand(CommandSender sender, String[] args) {
-
+        sender.sendMessage("comando");
     }
 
     public List<String> onTabComplete(CommandSender sender, String[] args) {
