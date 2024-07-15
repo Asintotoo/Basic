@@ -1,5 +1,6 @@
 package com.asintoto.basic;
 
+import com.asintoto.basic.commands.BasicCommand;
 import com.asintoto.basic.holograms.HologramManager;
 import com.asintoto.basic.listeners.InventoryClickListener;
 import com.asintoto.basic.listeners.InventoryCloseListener;
@@ -189,5 +190,10 @@ public final class Basic {
             hologramManager.removeAll();
             hologramManager.load();
         }
+    }
+
+    public static <T extends BasicCommand> void registerCommmand(String cmd, T commandClass) {
+        plugin.getCommand(cmd).setExecutor(commandClass);
+        plugin.getCommand(cmd).setTabCompleter(commandClass);
     }
 }
