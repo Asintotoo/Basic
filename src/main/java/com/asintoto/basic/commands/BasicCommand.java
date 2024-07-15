@@ -39,6 +39,10 @@ public abstract class BasicCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public final List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+
+        this.sender = sender;
+        this.args = args;
+
         return onTabComplete();
     }
 
