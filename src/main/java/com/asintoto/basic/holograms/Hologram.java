@@ -3,6 +3,7 @@ package com.asintoto.basic.holograms;
 import com.asintoto.basic.Basic;
 import com.asintoto.basic.utils.BasicKeys;
 import com.asintoto.basic.interfaces.BasicSerializable;
+import com.asintoto.colorlib.ColorLib;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -59,7 +60,7 @@ public class Hologram implements BasicSerializable {
             stand.setGravity(false);
             stand.setInvulnerable(true);
 
-            stand.setCustomName(s);
+            stand.setCustomName(ColorLib.setColors(s));
             stand.setCustomNameVisible(true);
 
             stand.getPersistentDataContainer().set(BasicKeys.BASIC_HOLOGRAM, PersistentDataType.INTEGER, id);

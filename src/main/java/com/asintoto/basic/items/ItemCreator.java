@@ -1,8 +1,10 @@
 package com.asintoto.basic.items;
 
+import com.asintoto.colorlib.ColorLib;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -66,6 +68,10 @@ public class ItemCreator {
         return this;
     }
 
+    public ItemCreator amount(int amount) {
+        return setAmount(amount);
+    }
+
     public ItemCreator setDamage(int damage) {
         this.damage = damage;
 
@@ -73,9 +79,13 @@ public class ItemCreator {
     }
 
     public ItemCreator setName(String name) {
-        this.name = name;
+        this.name = ColorLib.setColors(name);
 
         return this;
+    }
+
+    public ItemCreator name(String name) {
+        return setName(name);
     }
 
     public ItemCreator setUnbreakable(boolean unbreakable) {
@@ -87,6 +97,11 @@ public class ItemCreator {
     public ItemCreator setGlowing(boolean glow) {
         this.glow = glow;
 
+        return this;
+    }
+
+    public ItemCreator glow() {
+        this.glow = glow;
         return this;
     }
 
@@ -116,11 +131,15 @@ public class ItemCreator {
 
     public ItemCreator setLore(String... lore) {
         for(String s : lore) {
-            String str = ChatColor.translateAlternateColorCodes('&', lorePrefix + s);
+            String str = ColorLib.setColors(lorePrefix + s);
             this.lore.add(str);
         }
 
         return this;
+    }
+
+    public ItemCreator lore(String... lore) {
+        return setLore(lore);
     }
 
     public ItemStack make() {
@@ -175,5 +194,9 @@ public class ItemCreator {
         if(p.getInventory().firstEmpty() != -1) {
             p.getInventory().addItem(giveItem);
         }
+    }
+
+    public static ItemCreator of(Material m) {
+        return new ItemCreator(m);
     }
 }

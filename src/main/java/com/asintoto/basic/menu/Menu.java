@@ -24,7 +24,7 @@ public class Menu {
     private Map<Integer, Button> buttonSlotMap;
 
     public Menu(int size, String title) {
-        this.title = title;
+        this.title = ColorLib.setColors(title);
         this.size = size;
 
         this.buttonSlotMap = new HashMap<>();
@@ -55,7 +55,6 @@ public class Menu {
 
     public void open(Player p) {
         p.openInventory(inventory);
-        //p.getPersistentDataContainer().set(BasicKeys.BASIC_MENU_OPEN, PersistentDataType.BOOLEAN, true);
         MenuManager.addPlayer(p, this);
     }
 
@@ -72,23 +71,10 @@ public class Menu {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = ColorLib.setColors(title);
     }
 
     public void addButton(Button button, int slot) {
-        /*if(button.getButtonType() == ButtonType.PREVIUS) {
-            try {
-                ItemMeta meta = button.getItem().getItemMeta();
-
-                meta.getPersistentDataContainer().set(BasicKeys.BASIC_MENU_HOLDER,
-                        MenuDataType.getInstance(), getPrevMenu());
-
-                button.getItem().setItemMeta(meta);
-            } catch (Exception e) {
-                Bukkit.getServer().getConsoleSender().sendMessage(ColorLib
-                        .setColors("&cThis feature is still work in progress, it might not work. If you see this message it means something went wrong. DO NOT REPORT THIS ERROR"));
-            }
-        }*/
         this.inventory.setItem(slot, button.getItem());
         this.buttonSlotMap.put(slot, button);
     }
