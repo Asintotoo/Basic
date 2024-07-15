@@ -27,5 +27,28 @@
 
 Learn how to use Basic in you Minecraft Java Edition plugin by visiting the [wiki](https://github.com/Asintotoo/Basic/wiki/)
 
-***
+## Additional Libraries
+
 **ColorLib implementation**: Basic comes with Asintoto's ColorLib already integrated. Get more information [here](https://github.com/Asintotoo/ColorLib)
+
+***
+# Licencing Information
+
+© Asintoto
+
+Read this carefully before publishing any resource using Basic:
+
+1) **If you are using Basic for you free and open source plugin**: You can use Basic as long as you give proper credit, by linking this repository and/or citing Asintoto
+
+2) **If you are using Basic for your free but non open source plugin**: Same as above: You can use Basic as long as you give proper credit, by linking this repository and/or citing Asintoto
+
+3) **If you are using Basic for your paid plugin**: Before publishing your paid plugin you must contact @asintoto on Discord and provide the plugin name, the list of the webstores where you want to sell your plugin and an up-to-date way to contact you.
+
+4) **If you want to modify, improve or reproduce Basic**: You are free to do whatever you want with this library as long as you give proper credits, I suggest forking this project and opening a pull request if you think that you modifications are worth to be includeded in this project.
+
+In all of the above cases, do not sell or claim any part of this library as your own.
+
+Feel free to contact me on discord (@asintoto) for any question.
+
+No guarantee - this software is provided AS IS, without any guarantee on its, I am not
+taking any responsibility for the success or failure you achieve using it.
