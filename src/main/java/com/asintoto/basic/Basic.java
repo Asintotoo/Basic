@@ -9,6 +9,8 @@ import com.asintoto.basic.regions.RegionManager;
 import com.asintoto.basic.utils.Debug;
 import com.asintoto.basic.utils.Options;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -193,14 +195,22 @@ public final class Basic {
         }
     }
 
-    public static <T extends BasicCommand> void registerCommmand(String cmd, T commandClass) {
+    public static <T extends BasicCommand> void registerCommand(String cmd, T commandClass) {
         plugin.getCommand(cmd).setExecutor(commandClass);
         plugin.getCommand(cmd).setTabCompleter(commandClass);
     }
 
-    public static <T extends BasicCommand> void registerCommmand(T commandClass) {
+    public static <T extends CommandExecutor> void registerCommand(String cmd, T commandClass) {
+        plugin.getCommand(cmd).setExecutor(commandClass);
+    }
+
+    public static <T extends TabCompleter> void registerTabCompleter(String cmd, T commandClass) {
+        plugin.getCommand(cmd).setTabCompleter(commandClass);
+    }
+
+    public static <T extends BasicCommand> void registerCommand(T commandClass) {
         String label = commandClass.getLabel();
-        registerCommmand(label, commandClass);
+        registerCommand(label, commandClass);
     }
 
     public static <T extends Listener> void registerListener(T listenerClass) {
