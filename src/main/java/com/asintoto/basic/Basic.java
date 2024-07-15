@@ -262,8 +262,13 @@ public final class Basic {
             command.setDescription(description);
             command.setPermission(permission);
             command.setAliases(aliases);
+            command.setLabel(name);
 
-            commandMap.register(plugin.getDescription().getName(), command);
+            commandMap.register(command.getLabel(), command);
+
+            if(!command.isRegistered()) {
+                Debug.log("Command /" + command.getLabel() + " wasn't registered properly!");
+            }
 
             plugin.getCommand(name);
         } catch (Exception e) {
