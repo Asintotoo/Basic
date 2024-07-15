@@ -12,6 +12,8 @@
 
 **Basic** is a comprehensive library designed for Minecraft Spigot to simplify various aspects of plugin development. This library offers a range of features including Region Management, Holograms, Easy Menu Creation, Easy Item Creation, and Automatic File Saving. With Basic, developers can focus more on the unique aspects of their plugins rather than the repetitive boilerplate code.
 
+**Current Spigot Version**: [1.20.1](https://helpch.at/docs/1.20.1/help-doc.html)
+
 ## Features
 
 - **Region Management**: Easily create and manage regions within your Minecraft server.
