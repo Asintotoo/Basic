@@ -22,7 +22,7 @@ public class AnnotatedCommand extends BasicCommand{
         findMethods();
 
         this.setUsage("&cUsage: /" + getLabel() + " <" + String.join("|", methods.keySet()
-                .stream().filter(methodName -> !methodName.isEmpty()).collect(Collectors.toList())));
+                .stream().filter(methodName -> !methodName.isEmpty()).collect(Collectors.toList())) + ">");
     }
 
     private void findMethods() {
@@ -71,7 +71,7 @@ public class AnnotatedCommand extends BasicCommand{
     @Override
     public final List<String> onTabComplete() {
         if(args.length == 1) {
-            return methods.keySet().stream().toList();
+            return methods.keySet().stream().filter(p -> !p.isEmpty()).toList();
         }
 
         return NO_COMPLETE;
