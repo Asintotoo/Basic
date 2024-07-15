@@ -264,6 +264,8 @@ public final class Basic {
             command.setAliases(aliases);
 
             commandMap.register(plugin.getDescription().getName(), command);
+
+            plugin.getCommand(name);
         } catch (Exception e) {
             e.printStackTrace();
         }
