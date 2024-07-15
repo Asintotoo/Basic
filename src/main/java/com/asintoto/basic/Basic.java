@@ -51,7 +51,7 @@ public final class Basic {
         Debug.log("Menu Manager successfully initialized!");
 
         File folder = new File(getPlugin().getDataFolder().getAbsolutePath());
-        if(!folder.exists()) {
+        if (!folder.exists()) {
             folder.mkdir();
         }
 
@@ -62,7 +62,7 @@ public final class Basic {
 
         Debug.log("System events registered!");
 
-        if(options.isDataFolder()) {
+        if (options.isDataFolder()) {
             File dataFolder = new File(plugin.getDataFolder() + "/" + options.getDataFolderName());
             if (!dataFolder.exists()) {
                 dataFolder.mkdir();
@@ -77,16 +77,16 @@ public final class Basic {
         Debug.log("Data Managers instantiated!");
 
 
-        if(options.isSaveRegions()) {
-            if(regionManager.fileExists()) {
+        if (options.isSaveRegions()) {
+            if (regionManager.fileExists()) {
                 regionManager.load();
             }
 
             Debug.log("Regions Loaded!");
         }
 
-        if(options.isSaveHolograms()) {
-            if(hologramManager.fileExists()) {
+        if (options.isSaveHolograms()) {
+            if (hologramManager.fileExists()) {
                 hologramManager.load();
             }
 
@@ -107,13 +107,13 @@ public final class Basic {
         Basic.isActive = false;
         MenuManager.closeAllMenus();
 
-        if(options.isSaveRegions()) {
+        if (options.isSaveRegions()) {
             regionManager.save();
 
             Debug.log("Regions saved!");
         }
 
-        if(options.isSaveHolograms()) {
+        if (options.isSaveHolograms()) {
             hologramManager.save();
 
             Debug.log("Holograms saved!");
@@ -192,23 +192,18 @@ public final class Basic {
 
         MenuManager.closeAllMenus();
 
-        if(regionManager.fileExists()) {
+        if (regionManager.fileExists()) {
             regionManager.load();
         }
-        if(hologramManager.fileExists()) {
+        if (hologramManager.fileExists()) {
             hologramManager.removeAll();
             hologramManager.load();
         }
     }
 
     public static <T extends BasicCommand> void registerCommand(String cmd, T commandClass) {
-        if(options().isRegisterCommandInFile()) {
-            registerDynamicCommand(cmd, commandClass.getDescription(), commandClass.getPermission(),
-                    commandClass.getAliases(), commandClass, commandClass);
-        } else {
-            plugin.getCommand(cmd).setExecutor(commandClass);
-            plugin.getCommand(cmd).setTabCompleter(commandClass);
-        }
+        plugin.getCommand(cmd).setExecutor(commandClass);
+        plugin.getCommand(cmd).setTabCompleter(commandClass);
 
     }
 
@@ -236,41 +231,5 @@ public final class Basic {
 
     public static <T extends Listener> void registerListener(T listenerClass, JavaPlugin pl) {
         plugin.getServer().getPluginManager().registerEvents(listenerClass, pl);
-    }
-
-    public static <T extends BasicCommand> void registerDynamicCommand(String name, String description, String permission, List<String> aliases, CommandExecutor executor, T commandClass) {
-        try {
-            Field commandMapField = Bukkit.getServer().getClass().getDeclaredField("commandMap");
-            commandMapField.setAccessible(true);
-            CommandMap commandMap = (CommandMap) commandMapField.get(Bukkit.getServer());
-
-            Command command = new BukkitCommand(name) {
-                @Override
-                public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-                    if (executor != null) {
-                        return executor.onCommand(sender, this, commandLabel, args);
-                    }
-                    return false;
-                }
-            };
-            command.setDescription(description);
-            command.setPermission(permission);
-            command.setAliases(aliases);
-            command.setLabel(name);
-
-
-            commandMap.register(command.getLabel(), command);
-
-            if(!command.isRegistered()) {
-                Debug.log("Command /" + command.getLabel() + " wasn't registered properly!");
-            }
-
-            plugin.getCommand(command.getLabel()).setExecutor(commandClass);
-            plugin.getCommand(command.getLabel()).setTabCompleter(commandClass);
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

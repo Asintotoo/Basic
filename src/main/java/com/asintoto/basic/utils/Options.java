@@ -6,33 +6,14 @@ public class Options {
     private boolean saveRegions;
     private boolean saveHolograms;
     private boolean debugMode;
-    private boolean registerCommandInFile;
     private String dataFolderName;
 
     public Options() {
         this.debugMode = false;
         this.saveHolograms = false;
         this.saveRegions = false;
-        this.registerCommandInFile = true;
 
         this.dataFolderName = "data";
-    }
-
-    public boolean isRegisterCommandInFile() {
-        return registerCommandInFile;
-    }
-
-    public void setRegisterCommandInFile(boolean registerCommandInFile) {
-        this.registerCommandInFile = registerCommandInFile;
-    }
-
-    public void registerCommandInFile(boolean registerCommandInFile) {
-        this.registerCommandInFile = registerCommandInFile;
-    }
-
-    public Options registerCommandInFile() {
-        this.registerCommandInFile = true;
-        return this;
     }
 
     public boolean isSaveRegions() {
