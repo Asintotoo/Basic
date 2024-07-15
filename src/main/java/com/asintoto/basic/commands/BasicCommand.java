@@ -83,4 +83,8 @@ public abstract class BasicCommand implements CommandExecutor, TabCompleter {
     protected void sendMessage(String msg) {
         sendMessage(sender, msg);
     }
+
+    public String getLabel() {
+        return label;
+    }
 }

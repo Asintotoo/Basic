@@ -198,7 +198,16 @@ public final class Basic {
         plugin.getCommand(cmd).setTabCompleter(commandClass);
     }
 
+    public static <T extends BasicCommand> void registerCommmand(T commandClass) {
+        String label = commandClass.getLabel();
+        registerCommmand(label, commandClass);
+    }
+
     public static <T extends Listener> void registerListener(T listenerClass) {
-        plugin.getServer().getPluginManager().registerEvents(listenerClass, plugin);
+        registerListener(listenerClass, plugin);
+    }
+
+    public static <T extends Listener> void registerListener(T listenerClass, JavaPlugin pl) {
+        plugin.getServer().getPluginManager().registerEvents(listenerClass, pl);
     }
 }
