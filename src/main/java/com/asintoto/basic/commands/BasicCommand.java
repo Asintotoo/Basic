@@ -1,7 +1,5 @@
 package com.asintoto.basic.commands;
 
-import com.asintoto.basic.Basic;
-import com.asintoto.basic.interfaces.RegisterCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -19,8 +17,6 @@ public abstract class BasicCommand implements CommandExecutor, TabCompleter {
 
     public BasicCommand(String label) {
         this.label = label;
-
-        registerCommand();
     }
 
     @Override
@@ -35,16 +31,9 @@ public abstract class BasicCommand implements CommandExecutor, TabCompleter {
     }
 
     public void onCommand(CommandSender sender, String[] args) {
-        sender.sendMessage("comando");
     }
 
     public List<String> onTabComplete(CommandSender sender, String[] args) {
         return NO_COMPLETE;
-    }
-
-    private void registerCommand() {
-        if(this.getClass().isAnnotationPresent(RegisterCommand.class)) {
-            Basic.getPlugin().getCommand(label).setExecutor(this);
-        }
     }
 }
