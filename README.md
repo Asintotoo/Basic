@@ -53,7 +53,7 @@ Read this carefully before publishing any resource using Basic:
 
 3) **If you are using Basic for your paid plugin**: Before publishing your paid plugin you must contact @asintoto on Discord and provide the plugin name, the list of the webstores where you want to sell your plugin and an up-to-date way to contact you.
 
-4) **If you want to modify, improve or reproduce Basic**: You are free to do whatever you want with this library as long as you give proper credits, I suggest forking this project and opening a pull request if you think that you modifications are worth to be includeded in this project.
+4) **If you want to modify, improve or reproduce Basic**: You are free to do whatever you want with this library as long as you give proper credits, I suggest forking this project and opening a pull request if you think that your modifications are worth to be includeded in this project.
 
 In all of the above cases, do not sell or claim any part of this library as your own.
 
