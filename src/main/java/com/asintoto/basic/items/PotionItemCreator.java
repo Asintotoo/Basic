@@ -9,14 +9,16 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PotionItemCreator {
     private boolean splash;
     private boolean lingering;
 
-    private Map<PotionEffect, Tuple<Integer, Integer>> potionEffects = new HashMap<>();
+    private List<PotionEffect> potionEffects = new ArrayList<>();
 
     private ItemCreator item;
     private int potionColor = -1;
@@ -53,12 +55,12 @@ public class PotionItemCreator {
         return this;
     }
 
-    public PotionItemCreator addPotionEffect(PotionEffect effect, int duration, int amplifier) {
-        potionEffects.put(effect, new Tuple<>(duration, amplifier));
+    public PotionItemCreator addPotionEffect(PotionEffect effect) {
+        potionEffects.add(effect);
         return this;
     }
 
-    public Map<PotionEffect, Tuple<Integer, Integer>> getPotionEffects() {
+    public List<PotionEffect> getPotionEffects() {
         return potionEffects;
     }
 
@@ -95,12 +97,9 @@ public class PotionItemCreator {
         if(meta == null) return finalItem;
 
         if(!potionEffects.isEmpty()) {
-            for(PotionEffect e : potionEffects.keySet()) {
-                PotionEffectType effectType = e.getType();
-                int duration = potionEffects.get(e).getKey();
-                int amplifier = potionEffects.get(e).getValue();
+            for(PotionEffect e : potionEffects) {
 
-                meta.addCustomEffect(new PotionEffect(effectType, duration, amplifier), true);
+                meta.addCustomEffect(e, true);
 
             }
         }
