@@ -7,12 +7,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PotionItemCreator {
     private boolean splash;
@@ -21,18 +18,12 @@ public class PotionItemCreator {
     private List<PotionEffect> potionEffects = new ArrayList<>();
 
     private ItemCreator item;
-    private int potionColor = -1;
 
     public PotionItemCreator(ItemCreator item) {
         this.lingering = false;
         this.splash = false;
 
         this.item = item;
-    }
-
-    public PotionItemCreator setColor(int color) {
-        this.potionColor = color;
-        return this;
     }
 
     public PotionItemCreator setSplash(boolean splash) {
@@ -76,10 +67,6 @@ public class PotionItemCreator {
         return item;
     }
 
-    public int getPotionColor() {
-        return potionColor;
-    }
-
     public ItemStack make() {
 
         ItemStack finalItem = item.make();
@@ -102,10 +89,6 @@ public class PotionItemCreator {
                 meta.addCustomEffect(e, true);
 
             }
-        }
-
-        if(potionColor != -1) {
-            meta.setColor(Color.fromRGB(potionColor));
         }
 
         finalItem.setItemMeta(meta);

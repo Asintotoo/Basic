@@ -80,6 +80,10 @@ public class ItemCreator {
         return this;
     }
 
+    public ItemCreator damage(int damage) {
+        return setDamage(damage);
+    }
+
     public ItemCreator setName(String name) {
         this.name = ColorLib.setColors(name);
 
@@ -189,6 +193,11 @@ public class ItemCreator {
         finalItem.setItemMeta(finalMeta);
 
         return finalItem;
+    }
+
+    public ItemCreator unbreakable() {
+        this.unbreakable = true;
+        return this;
     }
 
     public void give(Player p) {
