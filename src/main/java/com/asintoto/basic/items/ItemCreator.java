@@ -9,7 +9,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.potion.PotionEffect;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -124,7 +126,7 @@ public class ItemCreator {
     }
 
     public ItemCreator addEnchant(Enchantment ench, int level) {
-        this.enchants.put(ench, level - 1);
+        this.enchants.put(ench, level);
 
         return this;
     }
