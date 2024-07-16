@@ -5,6 +5,7 @@ import com.asintoto.basic.utils.BasicKeys;
 import com.asintoto.colorlib.ColorLib;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
@@ -87,7 +88,7 @@ public class Menu {
         return null;
     }
 
-    public void onClick(Player p, int slot) {
+    public void onClick(Player p, int slot, InventoryAction action) {
 
     }
 

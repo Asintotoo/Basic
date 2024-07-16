@@ -24,11 +24,6 @@ public class InventoryClickListener implements Listener {
 
         PersistentDataContainer itemData = item.getItemMeta().getPersistentDataContainer();
 
-        /*if(p.getPersistentDataContainer().has(BasicKeys.BASIC_MENU_OPEN, PersistentDataType.BOOLEAN)
-                && !itemData.has(BasicKeys.BUTTON_TYPE_UNLOCKED, PersistentDataType.BOOLEAN)) {
-            e.setCancelled(true);
-        }*/
-
         boolean isUnocked = itemData.has(BasicKeys.BUTTON_TYPE_UNLOCKED, PersistentDataType.BOOLEAN);
 
         if(!isUnocked) {
@@ -41,8 +36,6 @@ public class InventoryClickListener implements Listener {
         }
 
         if(itemData.has(BasicKeys.BUTTON_TYPE_PREV, PersistentDataType.BOOLEAN)) {
-            /*Menu prev = (Menu) itemData.get(BasicKeys.BASIC_MENU_HOLDER, MenuDataType.getInstance());
-            if(prev != null) prev.open(p);*/
 
             Menu prev = MenuManager.getPlayerMenu(p).getPrevMenu();
 
@@ -56,7 +49,7 @@ public class InventoryClickListener implements Listener {
         Menu menu = MenuManager.getPlayerMenu(p);
 
         if(slot >= 0 && slot <= menu.getSize() - 1) {
-            menu.onClick(p, slot);
+            menu.onClick(p, slot, e.getAction());
         }
     }
 }
