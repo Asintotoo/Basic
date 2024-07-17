@@ -1,6 +1,7 @@
 package com.asintoto.basic.commands;
 
 import com.asintoto.basic.interfaces.Parameter;
+import com.asintoto.basic.interfaces.RequiredPermission;
 import com.asintoto.basic.structures.Tuple;
 import com.asintoto.colorlib.ColorLib;
 
@@ -58,6 +59,16 @@ public class AnnotatedCommand extends BasicCommand{
                 return;
             }
 
+            if(method.isAnnotationPresent(RequiredPermission.class)) {
+                RequiredPermission requiredPermission = method.getDeclaredAnnotation(RequiredPermission.class);
+                String permission = requiredPermission.permission();
+
+                if(!sender.hasPermission(permission)) {
+                    printNoPermission(permission);
+                    return;
+                }
+            }
+
             try {
                 method.invoke(this);
             } catch (Exception e) {
@@ -75,5 +86,11 @@ public class AnnotatedCommand extends BasicCommand{
         }
 
         return NO_COMPLETE;
+    }
+
+
+    public void printNoPermission(String permission) {
+        String msg = "&7[&4❌&7] &cYou do not have permission &7({permission})".replace("{permission}", permission);
+        sendMessage(ColorLib.setColors(msg));
     }
 }
