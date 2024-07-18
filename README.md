@@ -14,7 +14,7 @@
 
 **Current Spigot Version**: [1.20.1](https://helpch.at/docs/1.20.1/help-doc.html)
 
-**Latest Basic Version**: [![](https://jitpack.io/v/Asintotoo/Basic.svg)](https://jitpack.io/#Asintotoo/Basic)
+**Latest Basic Version**: [![](https://jitpack.io/v/Asintotoo/Basic.svg)]([https://jitpack.io/#Asintotoo/Basic](https://github.com/Asintotoo/Basic/releases/latest))
 
 ## Features
 
