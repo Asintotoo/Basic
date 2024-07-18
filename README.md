@@ -14,6 +14,8 @@
 
 **Current Spigot Version**: [1.20.1](https://helpch.at/docs/1.20.1/help-doc.html)
 
+**Latest Basic Version**: [![](https://jitpack.io/v/Asintotoo/Basic.svg)](https://jitpack.io/#Asintotoo/Basic)
+
 ## Features
 
 - **Region Management**: Easily create and manage regions within your Minecraft server.
