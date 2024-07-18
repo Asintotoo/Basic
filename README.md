@@ -65,3 +65,9 @@ Feel free to contact me on discord (@asintoto) for any question.
 
 No guarantee - this software is provided AS IS, without any guarantee on its, I am not
 taking any responsibility for the success or failure you achieve using it.
+
+***
+# Contact me:
+<p align="left">
+<a href="https://discord.gg/asintoto" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/discord.svg" alt="asintoto" height="30" width="40" /></a>
+</p>
