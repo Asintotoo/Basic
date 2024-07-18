@@ -4,6 +4,7 @@ import com.asintoto.colorlib.ColorLib;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -209,5 +210,31 @@ public class ItemCreator {
 
     public static ItemCreator of(Material m) {
         return new ItemCreator(m);
+    }
+
+    public static ItemCreator ofEgg(EntityType type) {
+        return of(makeMonsterEgg(type));
+    }
+
+    private static Material makeMonsterEgg(EntityType type) {
+        Material created = Material.SHEEP_SPAWN_EGG;
+
+        try {
+            String name = type.toString().toUpperCase() + "_SPAWN_EGG";
+
+            if (type.name().equals("MUSHROOM_COW") || type.name().equals("MOOSHROOM"))
+                name = "MOOSHROOM_SPAWN_EGG";
+
+            created = Material.valueOf(name);
+
+            if(created == null) {
+                return Material.SHEEP_SPAWN_EGG;
+            }
+
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+
+        return created;
     }
 }
