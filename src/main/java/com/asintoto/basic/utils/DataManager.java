@@ -47,6 +47,7 @@ public abstract class DataManager {
             file.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
+            Common.error("Error during file creation");
         }
     }
 
