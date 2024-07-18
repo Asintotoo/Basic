@@ -98,7 +98,7 @@ public class AnnotatedCommand extends BasicCommand{
     }
 
     public void sendSuccessMessage() {
-        String msg = ColorLib.setColors("&7[&a&l" + BasicChar.CHECK + "&r&7] <SOLID:42f554>Command &r&7" + label + " " + executedArg + "&r<SOLID:42f554>executed successfully!");
+        String msg = ColorLib.setColors("&7[&a&l" + BasicChar.CHECK + "&r&7] <SOLID:42f554>Command &r&7/" + label + " " + executedArg + "&r<SOLID:42f554> executed successfully!");
         sendMessage(msg);
     }
 }

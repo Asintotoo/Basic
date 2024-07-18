@@ -2,19 +2,16 @@ package com.asintoto.basic.items;
 
 import com.asintoto.basic.Basic;
 import com.asintoto.basic.enums.BasicChar;
+import com.asintoto.basic.utils.Common;
 import com.asintoto.colorlib.ColorLib;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.potion.PotionEffect;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -234,7 +231,7 @@ public class ItemCreator {
             }
 
         } catch (Throwable e) {
-            Basic.sendConsoleMessage("&7[&r&e" + BasicChar.WARNING + "&r&7] &r&eCannot parse the given enum type. Item type set to default value");
+            Common.warning("Cannot parse the given enum type. Item type set to default value");
         }
 
         return created;
