@@ -1,5 +1,7 @@
 package com.asintoto.basic.items;
 
+import com.asintoto.basic.Basic;
+import com.asintoto.basic.enums.BasicChar;
 import com.asintoto.colorlib.ColorLib;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -232,7 +234,7 @@ public class ItemCreator {
             }
 
         } catch (Throwable e) {
-            e.printStackTrace();
+            Basic.sendConsoleMessage("&7[&r&e" + BasicChar.WARNING + "&r&7] &r&eCannot parse the given enum type. Item type set to default value");
         }
 
         return created;

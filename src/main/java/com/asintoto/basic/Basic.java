@@ -8,6 +8,7 @@ import com.asintoto.basic.menu.MenuManager;
 import com.asintoto.basic.regions.RegionManager;
 import com.asintoto.basic.utils.Debug;
 import com.asintoto.basic.utils.Options;
+import com.asintoto.colorlib.ColorLib;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.command.defaults.BukkitCommand;
@@ -231,5 +232,9 @@ public final class Basic {
 
     public static <T extends Listener> void registerListener(T listenerClass, JavaPlugin pl) {
         plugin.getServer().getPluginManager().registerEvents(listenerClass, pl);
+    }
+
+    public static void sendConsoleMessage(String msg) {
+        Bukkit.getServer().getConsoleSender().sendMessage(ColorLib.setColors(msg));
     }
 }

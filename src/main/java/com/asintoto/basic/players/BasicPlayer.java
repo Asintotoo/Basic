@@ -1,5 +1,6 @@
 package com.asintoto.basic.players;
 
+import com.asintoto.basic.enums.BasicChar;
 import com.asintoto.colorlib.ColorLib;
 import com.asintoto.basic.Basic;
 import org.bukkit.BanList;
@@ -12,6 +13,8 @@ import java.util.UUID;
 
 public class BasicPlayer {
     private Player player;
+
+    private static String banKickMessage = ColorLib.setColors("&c" + BasicChar.CROSS + "You are banned from this server. Reason {reason}");
 
     public BasicPlayer(Player player) {
         this.player = player;
@@ -114,7 +117,8 @@ public class BasicPlayer {
 
         BanList.Type bantype = ip ? BanList.Type.IP : BanList.Type.PROFILE;
 
-        player.getServer().getBanList(bantype).addBan(ip ? getIP() : player.getName(), reason, banExpire, source);
+        player.getServer().getBanList(bantype).addBan(ip ? getIP() : player.getName(), reason, banExpire, ColorLib.setColors(source));
+        player.kickPlayer(banKickMessage.replace("{reason}", reason));
     }
 
     /**
@@ -177,17 +181,6 @@ public class BasicPlayer {
 
 
     /**
-     * Send a chat message as the player.
-     * Formatted with ColorLib
-     *
-     * @param msg
-     */
-    public void chat(String msg) {
-        player.chat(ColorLib.setColors(msg));
-    }
-
-
-    /**
      * Convert a player to a BasicPlayer
      *
      * @param p
@@ -197,5 +190,12 @@ public class BasicPlayer {
         return new BasicPlayer(p);
     }
 
+    public static String getBanKickMessage() {
+        return banKickMessage;
+    }
 
+    public static void setBanKickMessage(String banKickMessage) {
+        // Use {reason} to insert the ban reason
+        BasicPlayer.banKickMessage = ColorLib.setColors(banKickMessage);
+    }
 }

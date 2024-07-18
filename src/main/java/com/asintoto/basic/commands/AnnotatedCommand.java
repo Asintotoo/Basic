@@ -1,5 +1,6 @@
 package com.asintoto.basic.commands;
 
+import com.asintoto.basic.enums.BasicChar;
 import com.asintoto.basic.interfaces.Parameter;
 import com.asintoto.basic.interfaces.RequiredPermission;
 import com.asintoto.basic.structures.Tuple;
@@ -15,6 +16,7 @@ public class AnnotatedCommand extends BasicCommand{
 
     private Map<String, Tuple<Method, Parameter>> methods = new HashMap<>();
     private String notAPlayer;
+    private String executedArg = "";
 
     public AnnotatedCommand(String label) {
         super(label);
@@ -70,6 +72,7 @@ public class AnnotatedCommand extends BasicCommand{
             }
 
             try {
+                this.executedArg = param;
                 method.invoke(this);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -90,7 +93,12 @@ public class AnnotatedCommand extends BasicCommand{
 
 
     public void printNoPermission(String permission) {
-        String msg = "&7[&4❌&7] &cYou do not have permission &7({permission})".replace("{permission}", permission);
+        String msg = "&7[&4" + BasicChar.CROSS + "&7] &cYou do not have permission &7({permission})".replace("{permission}", permission);
         sendMessage(ColorLib.setColors(msg));
+    }
+
+    public void sendSuccessMessage() {
+        String msg = ColorLib.setColors("&7[&a&l" + BasicChar.CHECK + "&r&7] <SOLID:42f554>Command &r&7" + label + " " + executedArg + "&r<SOLID:42f554>executed successfully!");
+        sendMessage(msg);
     }
 }
