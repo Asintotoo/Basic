@@ -14,7 +14,7 @@ import java.util.UUID;
 public class BasicPlayer {
     private Player player;
 
-    private static String banKickMessage = ColorLib.setColors("&c" + BasicChar.CROSS + "You are banned from this server. Reason {reason}");
+    private static String banKickMessage = ColorLib.setColors("&c" + BasicChar.CROSS + " You are banned from this server. Reason {reason}");
 
     public BasicPlayer(Player player) {
         this.player = player;
@@ -117,8 +117,8 @@ public class BasicPlayer {
 
         BanList.Type bantype = ip ? BanList.Type.IP : BanList.Type.PROFILE;
 
-        player.getServer().getBanList(bantype).addBan(ip ? getIP() : player.getName(), reason, banExpire, ColorLib.setColors(source));
-        player.kickPlayer(banKickMessage.replace("{reason}", reason));
+        player.getServer().getBanList(bantype).addBan(ip ? getIP() : player.getName(), ColorLib.setColors(reason), banExpire, ColorLib.setColors(source));
+        player.kickPlayer(banKickMessage.replace("{reason}", ColorLib.setColors(reason)));
     }
 
     /**
@@ -130,6 +130,16 @@ public class BasicPlayer {
         ban(reason, -1, false, null);
     }
 
+    /**
+     * Temp-Ban a player
+     *
+     * @param reason
+     * @param duration
+     */
+    public void ban(String reason, long duration) {
+        ban(reason, duration, false, null);
+    }
+
 
     /**
      * Perma-IP-Ban a player
@@ -138,6 +148,16 @@ public class BasicPlayer {
      */
     public void banIP(String reason) {
         ban(reason, -1, true, null);
+    }
+
+    /**
+     * Temp-IP-Ban a player
+     *
+     * @param reason
+     * @param duration
+     */
+    public void banIP(String reason, long duration) {
+        ban(reason, duration, true, null);
     }
 
     /**
