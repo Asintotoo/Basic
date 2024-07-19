@@ -114,7 +114,7 @@ public class ReflectionUtils {
                 }
 
                 //Register Basic Commands
-                if (clazz.getSuperclass() == BasicCommand.class) {
+                if (isChildClassOf(clazz, BasicCommand.class)) {
                     try {
                         Constructor constructor = clazz.getConstructor();
                         Object object = constructor.newInstance();
@@ -132,5 +132,11 @@ public class ReflectionUtils {
 
             }
         }
+    }
+
+    private static boolean isChildClassOf(Class<?> child, Class<?> parent) {
+        if(child == null) return false;
+        if(child.getSuperclass() == parent) return true;
+        return isChildClassOf(child.getSuperclass(), parent);
     }
 }
