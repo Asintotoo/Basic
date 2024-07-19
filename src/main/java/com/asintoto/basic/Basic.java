@@ -5,6 +5,7 @@ import com.asintoto.basic.holograms.HologramManager;
 import com.asintoto.basic.listeners.InventoryClickListener;
 import com.asintoto.basic.listeners.InventoryCloseListener;
 import com.asintoto.basic.menu.MenuManager;
+import com.asintoto.basic.reflection.ReflectionUtils;
 import com.asintoto.basic.regions.RegionManager;
 import com.asintoto.basic.utils.Debug;
 import com.asintoto.basic.utils.Options;
@@ -50,6 +51,9 @@ public final class Basic {
 
         MenuManager.init();
         Debug.log("Menu Manager successfully initialized!");
+
+        ReflectionUtils.registerAll();
+        Debug.log("Listeners and Basic Commands registered!");
 
         File folder = new File(getPlugin().getDataFolder().getAbsolutePath());
         if (!folder.exists()) {
