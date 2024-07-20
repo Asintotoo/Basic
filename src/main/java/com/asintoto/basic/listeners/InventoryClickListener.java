@@ -35,10 +35,10 @@ public class InventoryClickListener implements Listener {
             if(isInventoryClick(slot, rawSlot, menu)) {
                 return;
             }
-        }
 
-        if(!itemData.has(BasicKeys.BUTTON_IS_BUTTON, PersistentDataType.BOOLEAN)) {
-            return;
+            if(!itemData.has(BasicKeys.BUTTON_IS_BUTTON, PersistentDataType.BOOLEAN)) {
+                return;
+            }
         }
 
         boolean isUlnocked = itemData.has(BasicKeys.BUTTON_TYPE_UNLOCKED, PersistentDataType.BOOLEAN);

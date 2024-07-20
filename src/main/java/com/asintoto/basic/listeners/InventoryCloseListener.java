@@ -1,5 +1,6 @@
 package com.asintoto.basic.listeners;
 
+import com.asintoto.basic.menu.Menu;
 import com.asintoto.basic.menu.MenuManager;
 import com.asintoto.basic.utils.BasicKeys;
 import org.bukkit.entity.Player;
@@ -13,10 +14,12 @@ public class InventoryCloseListener implements Listener {
     public void onClose(InventoryCloseEvent e) {
         Player p = (Player) e.getPlayer();
 
-        /*if(p.getPersistentDataContainer().has(BasicKeys.BASIC_MENU_OPEN, PersistentDataType.BOOLEAN)) {
-            p.getPersistentDataContainer().remove(BasicKeys.BASIC_MENU_OPEN);
-        }*/
+        if(!MenuManager.contains(p)) return;
+
+        Menu menu = MenuManager.getPlayerMenu(p);
 
         MenuManager.removePlayer(p);
+
+        menu.onClose(p);
     }
 }

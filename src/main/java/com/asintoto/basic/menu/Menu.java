@@ -110,4 +110,8 @@ public class Menu {
 
     }
 
+    public void onClose(Player p) {
+
+    }
+
 }
