@@ -5,6 +5,7 @@ import com.asintoto.basic.holograms.HologramManager;
 import com.asintoto.basic.listeners.InventoryClickListener;
 import com.asintoto.basic.listeners.InventoryCloseListener;
 import com.asintoto.basic.menu.MenuManager;
+import com.asintoto.basic.reflection.MinecraftVersion;
 import com.asintoto.basic.reflection.ReflectionUtils;
 import com.asintoto.basic.regions.RegionManager;
 import com.asintoto.basic.utils.Debug;
@@ -204,6 +205,15 @@ public final class Basic {
             hologramManager.removeAll();
             hologramManager.load();
         }
+    }
+
+    /**
+     * Get the Server Version (ex. 1.20.1)
+     *
+     * @return
+     */
+    public static String getServerVersion() {
+        return MinecraftVersion.getFullVersion();
     }
 
     public static <T extends BasicCommand> void registerCommand(String cmd, T commandClass) {
