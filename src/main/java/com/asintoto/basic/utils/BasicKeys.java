@@ -11,4 +11,5 @@ public class BasicKeys {
     public static final NamespacedKey BUTTON_TYPE_CLOSE = new NamespacedKey(Basic.getPlugin(), "button_type_close");
     public static final NamespacedKey BUTTON_TYPE_UNLOCKED = new NamespacedKey(Basic.getPlugin(), "button_type_unlocked");
     public static final NamespacedKey BUTTON_TYPE_PREV = new NamespacedKey(Basic.getPlugin(), "button_type_prev");
+    public static final NamespacedKey BUTTON_IS_BUTTON = new NamespacedKey(Basic.getPlugin(), "button_is_button");
 }

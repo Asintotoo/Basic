@@ -41,6 +41,13 @@ public class Button {
 
             this.item.setItemMeta(meta);
         }
+
+        ItemMeta meta = this.item.getItemMeta();
+
+        meta.getPersistentDataContainer().set(BasicKeys.BUTTON_IS_BUTTON,
+                PersistentDataType.BOOLEAN, true);
+
+        this.item.setItemMeta(meta);
     }
 
     public Button(ItemCreator item, ButtonType buttonType) {

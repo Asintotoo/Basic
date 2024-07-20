@@ -24,9 +24,26 @@ public class InventoryClickListener implements Listener {
 
         PersistentDataContainer itemData = item.getItemMeta().getPersistentDataContainer();
 
-        boolean isUnocked = itemData.has(BasicKeys.BUTTON_TYPE_UNLOCKED, PersistentDataType.BOOLEAN);
+        Menu menu = MenuManager.getPlayerMenu(p);
 
-        if(!isUnocked) {
+        if(menu == null) return;
+
+        int rawSlot = e.getRawSlot();
+        int slot = e.getSlot();
+
+        if(menu.hasPlayerInventoryProtection()) {
+            if(isInventoryClick(slot, rawSlot, menu)) {
+                return;
+            }
+        }
+
+        if(!itemData.has(BasicKeys.BUTTON_IS_BUTTON, PersistentDataType.BOOLEAN)) {
+            return;
+        }
+
+        boolean isUlnocked = itemData.has(BasicKeys.BUTTON_TYPE_UNLOCKED, PersistentDataType.BOOLEAN);
+
+        if(!isUlnocked) {
             e.setCancelled(true);
         }
 
@@ -44,12 +61,19 @@ public class InventoryClickListener implements Listener {
             return;
         }
 
-        int slot = e.getRawSlot();
-
-        Menu menu = MenuManager.getPlayerMenu(p);
-
-        if(slot >= 0 && slot <= menu.getSize() - 1) {
-            menu.onClick(p, slot, e.getAction());
+        if(isValidSlot(rawSlot, menu)) {
+            menu.onClick(p, rawSlot, e.getAction());
         }
+    }
+
+    private boolean isValidSlot(int rawSlot, Menu menu) {
+        return rawSlot >= 0 && rawSlot <= menu.getSize() - 1;
+    }
+
+    private boolean isInventoryClick(int slot, int rawSlot, Menu menu) {
+        if(!isValidSlot(rawSlot, menu)) return false;
+        if(slot < 0 || slot > 35) return false;
+        if(rawSlot == slot) return false;
+        return true;
     }
 }

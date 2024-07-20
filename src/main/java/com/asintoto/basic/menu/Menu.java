@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -23,6 +24,7 @@ public class Menu {
     private String title;
     private Menu prevMenu;
     private Map<Integer, Button> buttonSlotMap;
+    private boolean playerInventoryProtection;
 
     public Menu(int size, String title) {
         this.title = ColorLib.setColors(title);
@@ -36,6 +38,16 @@ public class Menu {
 
         this.prevMenu = null;
 
+        this.playerInventoryProtection = true;
+
+    }
+
+    public boolean hasPlayerInventoryProtection() {
+        return playerInventoryProtection;
+    }
+
+    public void setPlayerInventoryProtection(boolean playerInventoryProtection) {
+        this.playerInventoryProtection = playerInventoryProtection;
     }
 
     public void setInventory(Inventory inventory) {
@@ -85,6 +97,12 @@ public class Menu {
             return buttonSlotMap.get(slot);
         }
 
+        return null;
+    }
+
+    public ItemStack getRawItem(int slot) {
+        ItemStack temp = inventory.getItem(slot);
+        if(temp != null) return new ItemStack(temp.getType());
         return null;
     }
 
