@@ -31,7 +31,7 @@ public class InventoryClickListener implements Listener {
         int rawSlot = e.getRawSlot();
         int slot = e.getSlot();
 
-        if(menu.hasPlayerInventoryProtection()) {
+        if(!menu.hasPlayerInventoryProtection()) {
             if(isInventoryClick(slot, rawSlot, menu)) {
                 return;
             }
