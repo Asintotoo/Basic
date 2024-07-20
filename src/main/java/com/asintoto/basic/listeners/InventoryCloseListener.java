@@ -38,7 +38,13 @@ public class InventoryCloseListener implements Listener {
     }
 
     private void removeButtonStatus(ItemStack item) {
+
+        if(item == null) return;
+
         ItemMeta meta = item.getItemMeta();
+
+        if(meta == null) return;
+
         if(meta.getPersistentDataContainer().has(BasicKeys.BUTTON_IS_BUTTON, PersistentDataType.BOOLEAN)) {
             meta.getPersistentDataContainer().remove(BasicKeys.BUTTON_IS_BUTTON);
             item.setItemMeta(meta);
