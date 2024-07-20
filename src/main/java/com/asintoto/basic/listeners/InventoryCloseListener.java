@@ -7,6 +7,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 public class InventoryCloseListener implements Listener {
@@ -20,6 +22,26 @@ public class InventoryCloseListener implements Listener {
 
         MenuManager.removePlayer(p);
 
+        removePersistentDataButton(p);
         menu.onClose(p);
+    }
+
+
+    private void removePersistentDataButton(Player p) {
+        for(ItemStack item : p.getInventory().getContents()) {
+            removeButtonStatus(item);
+        }
+
+        for(ItemStack item : p.getInventory().getArmorContents()) {
+            removeButtonStatus(item);
+        }
+    }
+
+    private void removeButtonStatus(ItemStack item) {
+        ItemMeta meta = item.getItemMeta();
+        if(meta.getPersistentDataContainer().has(BasicKeys.BUTTON_IS_BUTTON, PersistentDataType.BOOLEAN)) {
+            meta.getPersistentDataContainer().remove(BasicKeys.BUTTON_IS_BUTTON);
+            item.setItemMeta(meta);
+        }
     }
 }
