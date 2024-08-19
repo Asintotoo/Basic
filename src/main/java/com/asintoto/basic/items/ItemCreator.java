@@ -45,7 +45,11 @@ public class ItemCreator {
         lore = new ArrayList<>();
         flags = new ArrayList<>();
 
-        this.meta = this.item.getItemMeta();
+        if(this.item.getType() != Material.AIR
+                && this.item.getType() != Material.CAVE_AIR
+                && this.item.getType() != Material.VOID_AIR) {
+            this.meta = this.item.getItemMeta();
+        }
     }
 
     public ItemCreator(Material item) {

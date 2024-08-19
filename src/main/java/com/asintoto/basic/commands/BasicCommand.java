@@ -15,18 +15,20 @@ import java.util.List;
 
 public abstract class BasicCommand implements CommandExecutor, TabCompleter {
 
-    protected List<String> NO_COMPLETE = Collections.emptyList();
-    protected List<String> PLAYER_LIST = null;
+    protected final List<String> NO_COMPLETE = Collections.emptyList();
+    protected final List<String> PLAYER_LIST = null;
     protected String label;
 
     protected CommandSender sender;
     protected String[] args;
 
     private String usage;
+    private String permission;
 
     public BasicCommand(String label) {
         this.label = label;
         this.usage = ColorLib.setColors("&cUsage: /" + label + " <params...>");
+        this.permission = Basic.getPlugin().getName().toLowerCase() + ".command." + label;
     }
 
     @Override
@@ -92,5 +94,30 @@ public abstract class BasicCommand implements CommandExecutor, TabCompleter {
 
     public String getLabel() {
         return label;
+    }
+
+    protected boolean hasPermission(CommandSender p) {
+        return p.hasPermission(permission);
+    }
+
+    protected boolean hasPermission(Player p) {
+        return p.hasPermission(permission);
+    }
+
+    protected boolean hasPermission() {
+        return sender.hasPermission(permission);
+    }
+
+    protected String getPermission() {
+        return this.permission;
+    }
+
+    protected void setPermission(String permission) {
+        this.permission = permission;
+    }
+
+    protected void printNoPermission() {
+        String msg = "&c&lYou do not have the permission to perform this command &r&8(" + permission + ")";
+        sendMessage(msg);
     }
 }

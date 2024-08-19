@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class Menu {
+public abstract class Menu {
 
     private Inventory inventory;
 
@@ -87,7 +87,12 @@ public class Menu {
         this.title = ColorLib.setColors(title);
     }
 
+    @Deprecated
     public void addButton(Button button, int slot) {
+        setButton(button, slot);
+    }
+
+    public void setButton(Button button, int slot) {
         this.inventory.setItem(slot, button.getItem());
         this.buttonSlotMap.put(slot, button);
     }

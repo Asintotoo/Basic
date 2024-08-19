@@ -19,4 +19,8 @@ public class Common {
     public static void success(String msg) {
         Basic.sendConsoleMessage(successPrefix + msg);
     }
+
+    public static void message(String msg) {
+        Basic.sendConsoleMessage(msg);
+    }
 }
